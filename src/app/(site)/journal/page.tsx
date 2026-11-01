@@ -36,7 +36,7 @@ export default function JournalPage() {
             <button
               key={c}
               onClick={() => setCat(c)}
-              className={cn("relative shrink-0 rounded-full px-4 py-2 text-[13px] font-medium transition-colors", cat === c ? "text-white" : "text-muted hover:text-ink")}
+              className={cn("relative shrink-0 chamfer chamfer-sm px-4 py-2 text-[13px] font-medium transition-colors", cat === c ? "text-white" : "text-muted hover:text-ink")}
             >
               {cat === c && <motion.span layoutId="journal-cat" className="absolute inset-0 rounded-full bg-ink" transition={{ type: "spring", stiffness: 400, damping: 34 }} />}
               <span className="relative">{c}</span>

@@ -9,7 +9,7 @@ export default function NotFound() {
           4<span className="em-light text-accent">0</span>4
         </h1>
         <p className="mt-4 text-white/60">Wrong turn. This road doesn&apos;t lead anywhere.</p>
-        <Link href="/" className="mt-10 inline-flex h-12 items-center rounded-full bg-white px-6 text-[14px] font-medium text-ink">
+        <Link href="/" className="mt-10 inline-flex h-12 items-center chamfer chamfer-sm bg-white px-6 text-[14px] font-medium text-ink">
           Back to showroom
         </Link>
       </div>

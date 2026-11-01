@@ -29,7 +29,7 @@ export function Journal() {
             <Link href={`/journal/${p.slug}`} className="group block" data-cursor="Read">
               <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem]">
                 <img src={p.cover} alt={p.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.4s] ease-out-expo group-hover:scale-105" />
-                <span className="eyebrow absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 !text-[10px] backdrop-blur">{p.category}</span>
+                <span className="eyebrow absolute left-4 top-4 chamfer chamfer-sm bg-white/90 px-3 py-1.5 !text-[10px] backdrop-blur">{p.category}</span>
               </div>
               <p className="eyebrow mt-5 text-muted">{formatDate(p.date)} · {p.author}</p>
               <h3 className="mt-2 text-[22px] font-semibold leading-tight tracking-tight">

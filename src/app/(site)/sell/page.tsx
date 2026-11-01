@@ -159,7 +159,7 @@ export default function SellPage() {
                 <p className="mt-6 max-w-sm text-[13px] text-white/50">
                   Indicative range based on market data. Your final offer follows a free 30-minute inspection and is valid for 7 days.
                 </p>
-                <a href="#sell-form" className="mt-6 inline-flex rounded-full bg-accent px-5 py-3 text-[14px] font-medium text-accent-ink">
+                <a href="#sell-form" className="mt-6 inline-flex chamfer chamfer-sm bg-accent px-5 py-3 text-[14px] font-medium text-accent-ink">
                   Lock this estimate →
                 </a>
               </div>

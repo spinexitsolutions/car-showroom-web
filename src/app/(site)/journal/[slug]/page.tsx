@@ -1,14 +1,14 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { useStore, useHydrated } from "@/lib/store";
-import { Reveal, SplitText } from "@/components/ui/motion";
+import { Reveal } from "@/components/ui/motion";
 import { Button } from "@/components/ui/button";
-import { EASE, formatDate } from "@/lib/utils";
+import { PageHeader } from "@/components/site/page-header";
+import { formatDate } from "@/lib/utils";
 import type { Post } from "@/lib/types";
 
 export default function ArticlePage() {
@@ -36,10 +36,6 @@ export default function ArticlePage() {
 }
 
 function Article({ post, related }: { post: Post; related: Post[] }) {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: heroP } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const imgY = useTransform(heroP, [0, 1], ["0%", "25%"]);
-  const imgScale = useTransform(heroP, [0, 1], [1.05, 1.2]);
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
   const paragraphs = post.content.split(/\n\s*\n/).filter(Boolean);
@@ -49,32 +45,12 @@ function Article({ post, related }: { post: Post; related: Post[] }) {
     <article>
       <motion.div style={{ scaleX: progress }} className="fixed inset-x-0 top-0 z-[70] h-[3px] origin-left bg-accent" />
 
-      <header className="container-x pt-32 md:pt-44">
-        <Link href="/journal" className="eyebrow inline-flex items-center gap-2 text-muted hover:text-ink">
-          <ArrowLeft className="size-3.5" /> Journal
-        </Link>
-        <p className="eyebrow mt-8 text-accent">
-          {post.category} · {minutes} min read
-        </p>
-        <h1 className="display mt-4 max-w-5xl text-[44px] sm:text-6xl lg:text-[96px]">
-          <SplitText text={post.title} trigger="mount" stagger={0.04} />
-        </h1>
-        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="mt-6 text-[14px] text-muted">
-          By <b className="font-medium text-ink">{post.author}</b> · {formatDate(post.date)}
-        </motion.p>
-      </header>
-
-      <motion.div
-        ref={heroRef}
-        initial={{ opacity: 0, y: 40, clipPath: "inset(8% 4% 0% 4% round 2rem)" }}
-        animate={{ opacity: 1, y: 0, clipPath: "inset(0% 0% 0% 0% round 2rem)" }}
-        transition={{ duration: 1.2, ease: EASE, delay: 0.3 }}
-        className="container-x mt-12"
-      >
-        <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] md:aspect-[21/9]">
-          <motion.img src={post.cover} alt={post.title} style={{ y: imgY, scale: imgScale }} className="absolute inset-0 h-full w-full object-cover" />
-        </div>
-      </motion.div>
+      <PageHeader
+        eyebrow={`${post.category} · ${minutes} min read`}
+        title={post.title}
+        image={post.cover}
+        description={`By ${post.author} · ${formatDate(post.date)}`}
+      />
 
       <div className="container-x mt-16 md:mt-24">
         <div className="mx-auto max-w-2xl">

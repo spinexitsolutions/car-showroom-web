@@ -1,13 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo } from "next/font/google";
+import { Saira, Chakra_Petch } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 
-// One sans family, used across widths: wide (125) for display, normal for body.
-const archivo = Archivo({
-  variable: "--font-archivo",
+// Saira (variable width) — motorsport-born sans for display + body.
+const saira = Saira({
+  variable: "--font-saira",
   subsets: ["latin"],
   axes: ["wdth"],
+});
+// Chakra Petch — angular, instrument-cluster sans for labels & read-outs.
+const chakra = Chakra_Petch({
+  variable: "--font-chakra",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -30,7 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${archivo.variable} antialiased`}
+      className={`${saira.variable} ${chakra.variable} antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-dvh">

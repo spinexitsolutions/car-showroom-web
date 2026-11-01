@@ -40,7 +40,7 @@ function Chip({ active, children, onClick }: { active: boolean; children: React.
     <button
       onClick={onClick}
       className={cn(
-        "relative shrink-0 rounded-full border px-4 py-2 text-[13px] font-medium capitalize transition-colors duration-300",
+        "relative shrink-0 chamfer chamfer-sm border px-4 py-2 text-[13px] font-medium capitalize transition-colors duration-300",
         active ? "border-ink text-white" : "border-line bg-white/60 text-ink hover:border-ink/30"
       )}
     >
@@ -221,7 +221,7 @@ export function InventoryView() {
             </div>
             <button
               onClick={() => setSheet(true)}
-              className="relative flex h-10 items-center gap-2 rounded-full bg-ink px-4 text-[13px] font-medium text-white lg:hidden"
+              className="relative flex h-10 items-center gap-2 chamfer chamfer-sm bg-ink px-4 text-[13px] font-medium text-white lg:hidden"
             >
               <SlidersHorizontal className="size-4" />
               Filters
@@ -258,7 +258,7 @@ export function InventoryView() {
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value as SortId)}
-                className="rounded-full bg-paper-2 px-3 py-2 text-[12px] font-medium outline-none sm:hidden"
+                className="chamfer chamfer-sm bg-paper-2 px-3 py-2 text-[12px] font-medium outline-none sm:hidden"
               >
                 {SORTS.map((s) => (
                   <option key={s.id} value={s.id}>
@@ -285,7 +285,7 @@ export function InventoryView() {
                 <p className="mx-auto mt-3 max-w-sm text-muted">
                   Try loosening a filter. Or tell us what you want and we&apos;ll source it for you.
                 </p>
-                <button onClick={clearAll} className="mt-6 rounded-full bg-ink px-5 py-3 text-[14px] font-medium text-white">
+                <button onClick={clearAll} className="mt-6 chamfer chamfer-sm bg-ink px-5 py-3 text-[14px] font-medium text-white">
                   Reset filters
                 </button>
               </motion.div>

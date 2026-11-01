@@ -15,7 +15,8 @@ npm run dev        # http://localhost:3000
 ## Design language
 
 - **Look:** Apple-style restraint. Cool paper `#f2f2ef`, deep graphite `#0a0a0c` and one electric-blue accent `#3b5bff`, which you can change from the admin panel. Button text switches between black and white automatically to stay readable on any accent.
-- **Type:** one sans-serif family, *Archivo*, used at different widths. Headlines are heavy and slightly expanded, emphasis words are hairline-light and fully expanded, labels are wide uppercase, and body text is normal width. No serif fonts.
+- **Type:** two sans-serif fonts that templates rarely use. *Saira* (motorsport-born, variable width) for headlines and body text: heavy and slightly expanded for headlines, ultra-light and fully expanded for emphasis words. *Chakra Petch* (angular, like a car dashboard) for labels and numbers. No serif fonts.
+- **Shape:** chamfered (cut) corners and HUD corner brackets instead of rounded pills.
 - **Layout:** mobile-first. Every page is built for a 390px screen first and has been checked for horizontal overflow.
 
 ## Public website
@@ -23,11 +24,12 @@ npm run dev        # http://localhost:3000
 | Feature | Notes |
 |---|---|
 | **Intro animation** | Counter from 000 to 100 with a gauge line, the brand letters rise into view, then the screen splits open. You can turn it on or off, set the text and length, and choose whether it plays once per session (Admin → Content → Intro). |
-| **"Orbit Island" navbar** | On desktop, a floating Dynamic-Island-style pill. When you scroll it shrinks to the logo, a scroll-progress ring and the current page; hovering expands it again. It hides on scroll down and comes back on scroll up. On mobile there is a bottom dock with a menu button that opens a full-screen menu with a circular reveal. |
+| **"Corner HUD" navbar** | Slanted racing-style logo top-left, with the live showroom clock, open/closed status and how many cars are in stock. Links are numbered like gauge ticks, with an accent underline that slides between them. At the top of the page the bar is transparent over the dark header; once you scroll it turns into a solid strip with a full-width accent bar showing scroll progress. The menu opens with a five-blade "shutter". On mobile, once you scroll, a bottom bar appears with Call, WhatsApp and Book a test drive. |
 | **Page transitions** | An ink curtain with the page name sweeps up between routes. |
 | **Smooth scroll + custom cursor** | Lenis inertial scrolling. On desktop the cursor turns into a label bubble ("View", "Drag", "Book") over interactive items. Both can be switched off. |
 | **Hero — "Showroom stage"** | Full-screen showcase that plays through the featured cars automatically. Each new car wipes in, and its name drops in letter by letter. A speedometer needle swings to the car's horsepower, and 0–100, top speed, torque and price count to the new values. A strip of thumbnails at the bottom lets you pick a car and shows progress to the next one. On desktop the image shifts slightly as you move the mouse. When you scroll, the hero stays in place, shrinks back, and the rest of the page slides over it like a sheet. |
 | **Homepage** | 12 sections. You can show, hide and reorder them from the admin panel: the hero, brand marquee that reacts to scroll speed, pinned horizontal featured gallery, word-by-word manifesto reveal, expanding category panels, dark stats bento with counters, stacking "ownership journey" cards, EMI calculator, testimonials, journal, FAQ, closing CTA. |
+| **Inner pages** | Every inner page opens on a dark header in the same style as the homepage hero: background photo picked for that page, breadcrumb, large headline. The page content then continues on a light sheet. The car detail page has its own full-screen header with a photo switcher, the horsepower speedometer and a live spec bar. |
 | **Inventory** | Search, filters (body, fuel, condition, brand, status, price), sorting, animated grid, mobile filter sheet, filters kept in the URL. |
 | **Car detail** | Gallery with lightbox and swipe, specs, colour picker, features, booking panel (test drive / enquiry / finance), similar cars. |
 | **Tools** | Compare up to 3 cars, wishlist, EMI calculator, instant trade-in estimate. |

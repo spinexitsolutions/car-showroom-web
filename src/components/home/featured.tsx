@@ -24,7 +24,7 @@ function Panel({ car, i, total }: { car: Car; i: number; total: number }) {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/30" />
       <div className="absolute inset-x-0 top-0 flex items-center justify-between p-6">
-        <span className="eyebrow rounded-full bg-white/15 px-3 py-1.5 backdrop-blur-md">
+        <span className="eyebrow chamfer chamfer-sm bg-white/15 px-3 py-1.5 backdrop-blur-md">
           {String(i + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
         </span>
         <span className="grid size-11 place-items-center rounded-full bg-white text-ink transition-transform duration-500 ease-out-expo group-hover:rotate-45">

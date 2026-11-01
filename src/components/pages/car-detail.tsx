@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowLeft,
   Check,
-  Gauge,
+  Gauge as GaugeIcon,
   Zap,
   Timer,
   Cog,
@@ -22,12 +22,13 @@ import {
 import type { Car } from "@/lib/types";
 import { useStore } from "@/lib/store";
 import { CarGallery } from "./car-gallery";
-import { CarCard, StatusPill } from "@/components/site/car-card";
+import { CarCard } from "@/components/site/car-card";
 import { LeadForm } from "@/components/site/lead-form";
 import { EmiCalculator } from "@/components/site/emi-calculator";
-import { Reveal, SplitText } from "@/components/ui/motion";
+import { Reveal } from "@/components/ui/motion";
 import { cn, EASE, emi, formatNumber, formatPrice } from "@/lib/utils";
 import { CompareTray } from "./compare-tray";
+import { Gauge, Tween, num } from "@/components/site/hud";
 
 const TABS = [
   { id: "test-drive", label: "Test drive" },
@@ -70,7 +71,7 @@ export function CarDetail({ car }: { car: Car }) {
   const specs = [
     { icon: Zap, label: "Power", value: car.power },
     { icon: Timer, label: "0–100 km/h", value: car.acceleration },
-    { icon: Gauge, label: "Top speed", value: car.topSpeed },
+    { icon: GaugeIcon, label: "Top speed", value: car.topSpeed },
     { icon: Cog, label: "Engine", value: car.engine },
     { icon: Route, label: "Torque", value: car.torque },
     { icon: Fuel, label: car.fuel === "Electric" ? "Range" : "Efficiency", value: car.range ?? "—" },
@@ -92,53 +93,29 @@ export function CarDetail({ car }: { car: Car }) {
     }
   }
 
-  const iconBtn = "grid size-11 place-items-center rounded-full border border-line bg-white/70 transition active:scale-90 hover:bg-white";
 
   return (
     <>
-      <div className="container-x pb-24 pt-28 md:pt-36">
-        <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease: EASE }}>
-          <Link href="/inventory" className="eyebrow inline-flex items-center gap-2 text-muted hover:text-ink">
-            <ArrowLeft className="size-3.5" /> Back to collection
-          </Link>
-        </motion.div>
-
-        {/* Title row */}
-        <div className="mt-6 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div>
-            <div className="flex flex-wrap items-center gap-2">
-              <StatusPill status={car.status} />
-              <span className="eyebrow rounded-full bg-paper-2 px-2.5 py-1 !text-[10px] text-muted">{car.condition}</span>
-              {car.badge && <span className="eyebrow rounded-full bg-accent/15 px-2.5 py-1 !text-[10px] text-accent">{car.badge}</span>}
-            </div>
-            <h1 className="display mt-4 text-[44px] sm:text-6xl lg:text-[96px]">
-              <SplitText text={`${car.brand} ${car.model}`} trigger="mount" />{" "}
-              <SplitText text={car.variant} wordClassName="em-light text-muted" trigger="mount" delay={0.2} />
-            </h1>
-            <p className="mt-3 text-lg text-muted">{car.tagline}</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <button aria-label="Wishlist" onClick={() => toggleWishlist(car.id)} className={cn(iconBtn, wish && "!border-accent !bg-accent text-accent-ink")}>
-              <Heart className={cn("size-4", wish && "fill-current")} />
-            </button>
-            <button aria-label="Compare" onClick={() => toggleCompare(car.id)} className={cn(iconBtn, inCompare && "!border-ink !bg-ink text-white")}>
-              <GitCompareArrows className="size-4" />
-            </button>
-            <button aria-label="Share" onClick={share} className={cn(iconBtn, "relative")}>
-              {copied ? <Check className="size-4 text-accent" /> : <Share2 className="size-4" />}
-            </button>
-          </div>
-        </div>
-
+      <CarStage
+        car={car}
+        wish={wish}
+        inCompare={inCompare}
+        copied={copied}
+        onWish={() => toggleWishlist(car.id)}
+        onCompare={() => toggleCompare(car.id)}
+        onShare={share}
+      />
+      <div className="container-x relative z-10 -mt-10 rounded-t-[1.75rem] bg-paper pb-24 pt-10 md:-mt-14 md:rounded-t-[3rem] md:pt-14">
         <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_420px] lg:gap-14">
           {/* Left column */}
           <div className="min-w-0">
             <motion.div initial={{ opacity: 0, y: 30, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 1, ease: EASE, delay: 0.2 }}>
+              <p className="eyebrow mb-4 text-muted">Gallery · {car.images.length} photo{car.images.length > 1 ? "s" : ""}</p>
               <CarGallery images={car.images} alt={`${car.brand} ${car.model}`} />
             </motion.div>
 
             {/* Quick facts */}
-            <div className="mt-8 grid grid-cols-3 divide-x divide-line rounded-[1.5rem] border border-line bg-white/60 py-5 text-center">
+            <div className="chamfer mt-8 grid grid-cols-3 divide-x divide-line bg-white py-5 text-center">
               <div>
                 <p className="eyebrow text-muted">Year</p>
                 <p className="mt-1 text-xl font-semibold tracking-tight">{car.year}</p>
@@ -161,10 +138,10 @@ export function CarDetail({ car }: { car: Car }) {
               <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
                 {specs.map((s, i) => (
                   <Reveal key={s.label} delay={i * 0.05}>
-                    <div className="group h-full rounded-[1.5rem] bg-white p-5 transition-colors duration-500 hover:bg-ink hover:text-white">
+                    <div className="chamfer group h-full bg-white p-5 transition-colors duration-500 hover:bg-ink hover:text-white">
                       <s.icon className="size-5 text-accent" />
                       <p className="eyebrow mt-6 text-muted group-hover:text-white/50">{s.label}</p>
-                      <p className="mt-1 text-[19px] font-semibold leading-tight tracking-tight">{s.value}</p>
+                      <p className="hud mt-1 text-[19px] leading-tight">{s.value}</p>
                     </div>
                   </Reveal>
                 ))}
@@ -237,7 +214,7 @@ export function CarDetail({ car }: { car: Car }) {
               </ul>
             </section>
 
-            <section className="mt-16 flex flex-col gap-4 rounded-[2rem] bg-ink p-7 text-white sm:flex-row sm:items-center sm:justify-between md:p-10">
+            <section className="chamfer chamfer-lg mt-16 flex flex-col gap-4 bg-ink p-7 text-white sm:flex-row sm:items-center sm:justify-between md:p-10">
               <div className="flex items-start gap-4">
                 <ShieldCheck className="mt-1 size-7 shrink-0 text-accent" />
                 <div>
@@ -247,36 +224,36 @@ export function CarDetail({ car }: { car: Car }) {
                   </p>
                 </div>
               </div>
-              <a href={`tel:${settings.phone.replace(/\s/g, "")}`} className="inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-5 py-3 text-[14px] font-medium text-ink">
+              <a href={`tel:${settings.phone.replace(/\s/g, "")}`} className="inline-flex shrink-0 items-center gap-2 chamfer chamfer-sm bg-white px-5 py-3 text-[14px] font-medium text-ink">
                 <Phone className="size-4" /> {settings.phone}
               </a>
             </section>
           </div>
 
           {/* Right sticky booking panel */}
-          <aside>
+          <aside id="book">
             <div className="lg:sticky lg:top-28">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, ease: EASE, delay: 0.35 }}
-                className="rounded-[2rem] border border-line bg-white p-5 shadow-xl shadow-black/[0.04] md:p-7"
+                className="chamfer chamfer-lg bg-white p-5 shadow-xl shadow-black/[0.04] md:p-7"
               >
                 <p className="eyebrow text-muted">Ex-showroom price</p>
-                <p className="mt-1 text-4xl font-semibold tracking-tight">{formatPrice(car.price)}</p>
+                <p className="hud mt-1 text-4xl">{formatPrice(car.price)}</p>
                 <p className="mt-1 text-[13px] text-muted">
                   EMI from <b className="text-ink">₹{Math.round(monthly).toLocaleString("en-IN")}/mo</b> · 20% down, 5 yrs
                 </p>
 
-                <div className="relative mt-6 grid grid-cols-3 rounded-full bg-paper p-1">
+                <div className="chamfer chamfer-sm relative mt-6 grid grid-cols-3 bg-paper p-1">
                   {TABS.map((t) => (
                     <button
                       key={t.id}
                       onClick={() => setTab(t.id)}
-                      className={cn("relative z-10 rounded-full py-2.5 text-[13px] font-medium transition-colors", tab === t.id ? "text-white" : "text-muted")}
+                      className={cn("hud relative z-10 py-2.5 text-[12px] uppercase tracking-[0.1em] transition-colors", tab === t.id ? "text-white" : "text-muted")}
                     >
                       {tab === t.id && (
-                        <motion.span layoutId="detail-tab" className="absolute inset-0 -z-10 rounded-full bg-ink" transition={{ type: "spring", stiffness: 400, damping: 34 }} />
+                        <motion.span layoutId="detail-tab" className="absolute inset-0 -z-10 bg-ink" transition={{ type: "spring", stiffness: 400, damping: 34 }} />
                       )}
                       {t.label}
                     </button>
@@ -345,5 +322,158 @@ export function CarDetail({ car }: { car: Car }) {
       </div>
       <CompareTray />
     </>
+  );
+}
+
+/**
+ * Dark full-bleed "stage" for a single car — same instrument language as the
+ * home hero: photo wipes between angles, per-letter model name, horsepower
+ * gauge and a live spec read-out.
+ */
+function CarStage({
+  car,
+  wish,
+  inCompare,
+  copied,
+  onWish,
+  onCompare,
+  onShare,
+}: {
+  car: Car;
+  wish: boolean;
+  inCompare: boolean;
+  copied: boolean;
+  onWish: () => void;
+  onCompare: () => void;
+  onShare: () => void;
+}) {
+  const [img, setImg] = useState(0);
+  const btn = "chamfer chamfer-sm grid size-11 place-items-center bg-white/10 text-white backdrop-blur-md transition active:scale-90 hover:bg-white/20";
+  return (
+    <section data-stage className="relative h-svh min-h-[700px] overflow-hidden bg-ink text-white">
+      <AnimatePresence initial={false}>
+        <motion.div
+          key={img}
+          className="absolute inset-0"
+          initial={{ clipPath: "inset(0 0 0 100%)" }}
+          animate={{ clipPath: "inset(0 0 0 0%)" }}
+          transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
+        >
+          <motion.img
+            src={car.images[img]}
+            alt={`${car.brand} ${car.model}`}
+            initial={{ scale: 1.2 }}
+            animate={{ scale: 1.03 }}
+            transition={{ duration: 8, ease: "easeOut" }}
+            className="h-full w-full object-cover"
+          />
+        </motion.div>
+      </AnimatePresence>
+      <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/35 to-black/10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/5 to-black/50" />
+      <div className="pointer-events-none absolute inset-0 opacity-[0.06] [background-image:linear-gradient(rgba(255,255,255,0.7)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.7)_1px,transparent_1px)] [background-size:72px_72px] [mask-image:radial-gradient(70%_60%_at_60%_45%,black,transparent)]" />
+
+      <div className="container-x relative flex h-full flex-col pb-20 pt-24 md:pb-24 md:pt-28">
+        <div className="flex items-start justify-between gap-4">
+          <Link href="/inventory" className="eyebrow inline-flex items-center gap-2 text-white/60 hover:text-white">
+            <ArrowLeft className="size-3.5" /> Collection
+          </Link>
+          <div className="flex flex-wrap justify-end gap-1.5">
+            <span className="eyebrow bg-white/10 px-2.5 py-1.5 !text-[10px] backdrop-blur">{car.status}</span>
+            <span className="eyebrow bg-white/10 px-2.5 py-1.5 !text-[10px] backdrop-blur">{car.condition}</span>
+            {car.badge && <span className="eyebrow bg-accent px-2.5 py-1.5 !text-[10px] text-accent-ink">{car.badge}</span>}
+          </div>
+        </div>
+
+        <div className="mt-auto flex items-end justify-between gap-8">
+          <div className="min-w-0">
+            <motion.p
+              initial={{ opacity: 0, x: -16 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, ease: EASE, delay: 0.2 }}
+              className="eyebrow flex items-center gap-3 text-white/70"
+            >
+              <span className="h-px w-8 bg-accent" /> {car.brand} · {car.year}
+            </motion.p>
+            <h1 className="display mt-3 flex flex-wrap overflow-hidden pb-[0.06em] text-[17vw] leading-[0.86] md:text-[min(9vw,15vh)] xl:text-[min(140px,15vh)]" aria-label={`${car.brand} ${car.model}`}>
+              {car.model.split("").map((ch, i) => (
+                <motion.span
+                  key={i}
+                  className="inline-block"
+                  initial={{ y: "105%", rotate: 8 }}
+                  animate={{ y: "0%", rotate: 0 }}
+                  transition={{ duration: 0.9, ease: EASE, delay: 0.25 + i * 0.04 }}
+                >
+                  {ch === " " ? "\u00A0" : ch}
+                </motion.span>
+              ))}
+            </h1>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: EASE, delay: 0.5 }}
+              className="em-light mt-1 text-2xl text-white/80 md:text-4xl"
+            >
+              {car.variant}
+            </motion.p>
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }} className="mt-3 max-w-md text-[15px] text-white/60">
+              {car.tagline}
+            </motion.p>
+          </div>
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, ease: EASE, delay: 0.4 }} className="hidden shrink-0 lg:block">
+            <Gauge hp={num(car.power)} />
+          </motion.div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: EASE, delay: 0.55 }}
+          className="mt-6 grid grid-cols-3 gap-px overflow-hidden bg-white/10 ring-1 ring-white/10 backdrop-blur-md md:mt-8 md:grid-cols-[repeat(4,1fr)_auto]"
+        >
+          {[
+            { k: "0–100 km/h", v: <><Tween value={num(car.acceleration)} format={(v) => v.toFixed(1)} /><small className="ml-1 text-[0.5em] text-white/50">s</small></> },
+            { k: "Top speed", v: <><Tween value={num(car.topSpeed)} /><small className="ml-1 text-[0.5em] text-white/50">km/h</small></> },
+            { k: "Torque", hideSm: true, v: <><Tween value={num(car.torque)} /><small className="ml-1 text-[0.5em] text-white/50">Nm</small></> },
+            { k: "Price", v: formatPrice(car.price) },
+          ].map((x) => (
+            <div key={x.k} className={cn("bg-black/40 px-3 py-3 md:px-6 md:py-5", "hideSm" in x && "hidden md:block")}>
+              <p className="eyebrow text-white/45">{x.k}</p>
+              <p className="hud mt-1 whitespace-nowrap text-[18px] md:text-[28px]">{x.v}</p>
+            </div>
+          ))}
+          <div className="col-span-3 flex items-center gap-2 bg-black/40 p-2.5 md:col-span-1 md:px-5">
+            <button aria-label="Wishlist" onClick={onWish} className={cn(btn, wish && "!bg-accent !text-accent-ink")}>
+              <Heart className={cn("size-4", wish && "fill-current")} />
+            </button>
+            <button aria-label="Compare" onClick={onCompare} className={cn(btn, inCompare && "!bg-white !text-ink")}>
+              <GitCompareArrows className="size-4" />
+            </button>
+            <button aria-label="Share" onClick={onShare} className={btn}>
+              {copied ? <Check className="size-4 text-accent" /> : <Share2 className="size-4" />}
+            </button>
+            <a href="#book" className="chamfer chamfer-sm hud flex h-11 flex-1 items-center justify-center whitespace-nowrap bg-accent px-5 text-[12px] uppercase tracking-[0.1em] text-accent-ink md:flex-none">
+              Book test drive
+            </a>
+          </div>
+        </motion.div>
+
+        {car.images.length > 1 && (
+          <div className="no-scrollbar mt-2.5 flex gap-2 overflow-x-auto">
+            {car.images.map((src, k) => (
+              <button
+                key={src}
+                onClick={() => setImg(k)}
+                aria-label={`Photo ${k + 1}`}
+                className={cn("chamfer chamfer-sm relative h-12 w-20 shrink-0 overflow-hidden transition-opacity", k === img ? "opacity-100 ring-2 ring-accent" : "opacity-50 hover:opacity-100")}
+              >
+                <img src={src} alt="" className="h-full w-full object-cover" />
+                {k === img && <span className="absolute inset-x-0 bottom-0 h-[2px] bg-accent" />}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
   );
 }

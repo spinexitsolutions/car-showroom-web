@@ -71,7 +71,7 @@ export function CarGallery({ images, alt }: { images: string[]; alt: string }) {
         {renderSlide()}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
         <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-          <span className="eyebrow rounded-full bg-black/40 px-3 py-1.5 text-white backdrop-blur">
+          <span className="eyebrow chamfer chamfer-sm bg-black/40 px-3 py-1.5 text-white backdrop-blur">
             {String(index + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
           </span>
           <div className="flex gap-2">

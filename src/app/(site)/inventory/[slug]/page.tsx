@@ -30,7 +30,7 @@ export default function CarPage() {
           Car not <span className="em-light">found.</span>
         </h1>
         <p className="mt-4 max-w-md text-muted">It may have been sold or moved. Explore the rest of the collection.</p>
-        <Link href="/inventory" className="mt-8 rounded-full bg-ink px-6 py-3.5 text-[14px] font-medium text-white">
+        <Link href="/inventory" className="mt-8 chamfer chamfer-sm bg-ink px-6 py-3.5 text-[14px] font-medium text-white">
           Browse collection
         </Link>
       </div>
