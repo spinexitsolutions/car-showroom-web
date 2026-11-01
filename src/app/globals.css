@@ -61,6 +61,11 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Grid items shouldn't be widened by long content (URLs, inputs) on mobile. */
+@layer base {
+  :where(.grid) > * { min-width: 0; }
+}
+
 ::selection { background: var(--accent); color: #fff; }
 
 @layer components {
