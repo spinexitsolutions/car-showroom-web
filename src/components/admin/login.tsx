@@ -6,6 +6,7 @@ import { ArrowUpRight, Sparkles } from "lucide-react";
 import { DEMO_ADMIN, useStore } from "@/lib/store";
 import { u } from "@/lib/seed";
 import { EASE } from "@/lib/utils";
+import { LogoMark } from "@/components/site/navbar";
 
 export function AdminLogin() {
   const login = useStore((s) => s.login);
@@ -63,16 +64,14 @@ export function AdminLogin() {
           className="relative w-full max-w-sm"
         >
           <div className="flex items-center gap-3">
-            <span className="grid size-11 place-items-center rounded-2xl bg-white text-[15px] font-bold tracking-tighter text-ink">
-              {brand.slice(0, 1)}
-            </span>
+            <LogoMark className="h-8 text-white" />
             <div>
-              <p className="font-semibold tracking-tight">{brand}</p>
-              <p className="eyebrow !text-[10px] text-white/40">Admin console</p>
+              <p className="text-[18px] font-extrabold uppercase italic leading-none [font-stretch:125%]">{brand}</p>
+              <p className="eyebrow mt-1 !text-[10px] text-white/40">Race control · Admin</p>
             </div>
           </div>
 
-          <h1 className="mt-10 text-4xl font-semibold tracking-[-0.04em]">
+          <h1 className="display mt-10 text-5xl">
             Welcome <span className="em-light text-white/60">back.</span>
           </h1>
           <p className="mt-2 text-[14px] text-white/50">Sign in to manage your showroom.</p>
@@ -94,16 +93,16 @@ export function AdminLogin() {
             {error && <p className="text-[13px] text-red-400">{error}</p>}
             <button
               type="submit"
-              className="group mt-2 flex h-13 w-full items-center justify-between rounded-full bg-white py-2 pl-6 pr-2 text-[15px] font-medium text-ink transition active:scale-[0.98]"
+              className="chamfer chamfer-sm hud group mt-2 flex h-13 w-full items-center justify-between bg-white py-2 pl-6 pr-2 text-[13px] uppercase tracking-[0.12em] text-ink transition hover:bg-accent hover:text-accent-ink active:scale-[0.98]"
             >
               Sign in
-              <span className="grid size-9 place-items-center rounded-full bg-ink text-white transition-transform duration-500 group-hover:rotate-45">
+              <span className="chamfer chamfer-sm grid size-9 place-items-center bg-ink text-white transition-transform duration-500 group-hover:rotate-45">
                 <ArrowUpRight className="size-4" />
               </span>
             </button>
           </form>
 
-          <div className="mt-8 flex gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-[13px]">
+          <div className="mt-8 flex gap-3 chamfer chamfer-sm border border-white/10 bg-white/[0.04] p-4 text-[13px]">
             <Sparkles className="mt-0.5 size-4 shrink-0 text-accent" />
             <div className="text-white/60">
               <p className="font-medium text-white">Demo access</p>

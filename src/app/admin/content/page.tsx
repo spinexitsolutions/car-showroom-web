@@ -62,8 +62,8 @@ export default function ContentPage() {
                   </p>
                   <p className="mt-3 line-clamp-2 max-w-sm text-[12px] text-white/60">{h.subtitle}</p>
                   <div className="mt-4 flex gap-2">
-                    <span className="rounded-full bg-white px-3 py-1.5 text-[11px] font-medium text-ink">{h.ctaPrimary}</span>
-                    <span className="rounded-full border border-white/30 px-3 py-1.5 text-[11px] font-medium">{h.ctaSecondary}</span>
+                    <span className="chamfer chamfer-sm bg-white px-3 py-1.5 text-[11px] font-medium text-ink">{h.ctaPrimary}</span>
+                    <span className="chamfer chamfer-sm border border-white/30 px-3 py-1.5 text-[11px] font-medium">{h.ctaSecondary}</span>
                   </div>
                 </div>
               </div>
@@ -138,7 +138,7 @@ export default function ContentPage() {
           <Card title="Homepage sections" action={<span className="eyebrow !text-[10px] text-muted">Drag to reorder</span>}>
             <Reorder.Group axis="y" values={draft.sections} onReorder={(v) => patch("sections", v)} className="space-y-2">
               {draft.sections.map((s, i) => (
-                <Reorder.Item key={s.id} value={s} className={cn("flex cursor-grab items-center gap-3 rounded-2xl border border-line bg-white px-3 py-3 active:cursor-grabbing", !s.enabled && "opacity-55")}>
+                <Reorder.Item key={s.id} value={s} className={cn("flex cursor-grab items-center gap-3 chamfer chamfer-sm border border-line bg-white px-3 py-3 active:cursor-grabbing", !s.enabled && "opacity-55")}>
                   <GripVertical className="size-4 shrink-0 text-muted" />
                   <span className="w-6 font-mono text-[11px] text-muted">{String(i + 1).padStart(2, "0")}</span>
                   <span className="flex-1 truncate text-[14px] font-medium">{s.label}</span>
@@ -202,7 +202,7 @@ export default function ContentPage() {
               <input value={brand} onChange={(e) => setBrand(e.target.value)} placeholder="Add a brand…" className="field !rounded-full !py-2.5 text-[14px]" />
               <Btn type="submit" variant="ink" className="shrink-0"><Plus className="size-4" /> Add</Btn>
             </form>
-            <div className="relative mt-6 overflow-hidden rounded-2xl bg-ink py-5 text-white">
+            <div className="relative mt-6 overflow-hidden chamfer chamfer-sm bg-ink py-5 text-white">
               <div className="flex w-max animate-marquee gap-10 whitespace-nowrap" style={{ ["--marquee-duration" as string]: "25s" }}>
                 {[...draft.brands, ...draft.brands].map((b, i) => (
                   <span key={i} className="text-2xl font-semibold tracking-tight">
@@ -220,7 +220,7 @@ export default function ContentPage() {
               <Toggle checked={draft.announcement.enabled} onChange={(v) => patch("announcement", { ...draft.announcement, enabled: v })} label="Show announcement" description="A slim bar above the navigation on every page." />
               <Field label="Text" value={draft.announcement.text} onChange={(e) => patch("announcement", { ...draft.announcement, text: e.target.value })} />
               <Field label="Link" value={draft.announcement.link} onChange={(e) => patch("announcement", { ...draft.announcement, link: e.target.value })} placeholder="/inventory" />
-              <div className={cn("flex items-center justify-center gap-2 rounded-2xl bg-ink px-4 py-2.5 text-center text-[12.5px] text-white", !draft.announcement.enabled && "opacity-30")}>
+              <div className={cn("flex items-center justify-center gap-2 chamfer chamfer-sm bg-ink px-4 py-2.5 text-center text-[12.5px] text-white", !draft.announcement.enabled && "opacity-30")}>
                 <span className="size-1.5 rounded-full bg-accent" /> {draft.announcement.text} <span className="underline underline-offset-2">→</span>
               </div>
             </div>

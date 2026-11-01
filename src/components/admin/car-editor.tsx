@@ -93,11 +93,11 @@ export function CarEditor({ car }: { car?: Car }) {
       italic={car ? car.variant : "new car"}
       actions={
         <>
-          <Link href="/admin/inventory" className="inline-flex h-10 items-center gap-2 rounded-full border border-line bg-white px-4 text-[13px] font-medium hover:bg-paper">
+          <Link href="/admin/inventory" className="btn-ghost hud inline-flex h-10 items-center gap-2 chamfer chamfer-sm px-4 text-[11.5px] uppercase tracking-[0.1em]">
             <ArrowLeft className="size-4" /> Back
           </Link>
           {car && (
-            <Link href={`/inventory/${car.slug}`} target="_blank" className="inline-flex h-10 items-center gap-2 rounded-full border border-line bg-white px-4 text-[13px] font-medium hover:bg-paper">
+            <Link href={`/inventory/${car.slug}`} target="_blank" className="btn-ghost hud inline-flex h-10 items-center gap-2 chamfer chamfer-sm px-4 text-[11.5px] uppercase tracking-[0.1em]">
               View <ExternalLink className="size-3.5" />
             </Link>
           )}
@@ -170,11 +170,11 @@ export function CarEditor({ car }: { car?: Car }) {
             {d.images.length > 0 && (
               <Reorder.Group axis="y" values={d.images} onReorder={(v) => set("images", v)} className="mt-4 space-y-2">
                 {d.images.map((src, i) => (
-                  <Reorder.Item key={src} value={src} className="flex cursor-grab items-center gap-3 rounded-2xl border border-line bg-white p-2 pr-3 active:cursor-grabbing">
+                  <Reorder.Item key={src} value={src} className="flex cursor-grab items-center gap-3 chamfer chamfer-sm border border-line bg-white p-2 pr-3 active:cursor-grabbing">
                     <GripVertical className="size-4 shrink-0 text-muted" />
                     <img src={src} alt="" className="h-14 w-20 shrink-0 rounded-xl object-cover" />
                     <span className="min-w-0 flex-1 truncate font-mono text-[11px] text-muted">{src}</span>
-                    {i === 0 && <span className="eyebrow rounded-full bg-accent/10 px-2 py-0.5 !text-[9.5px] text-accent">Cover</span>}
+                    {i === 0 && <span className="eyebrow chamfer chamfer-sm bg-accent/10 px-2 py-0.5 !text-[9.5px] text-accent">Cover</span>}
                     <button onClick={() => set("images", d.images.filter((x) => x !== src))} className="grid size-8 shrink-0 place-items-center rounded-full hover:bg-red-50 hover:text-red-600" aria-label="Remove image">
                       <X className="size-4" />
                     </button>
@@ -189,7 +189,7 @@ export function CarEditor({ car }: { car?: Car }) {
             <div className="space-y-2">
               {d.colors.map((c, i) => (
                 <div key={i} className="flex items-center gap-2">
-                  <input type="color" value={c.hex} onChange={(e) => set("colors", d.colors.map((x, j) => (j === i ? { ...x, hex: e.target.value } : x)))} className="size-11 shrink-0 cursor-pointer rounded-xl border border-line bg-white p-1" />
+                  <input type="color" value={c.hex} onChange={(e) => set("colors", d.colors.map((x, j) => (j === i ? { ...x, hex: e.target.value } : x)))} className="size-11 shrink-0 cursor-pointer chamfer chamfer-sm border border-line bg-white p-1" />
                   <input value={c.name} onChange={(e) => set("colors", d.colors.map((x, j) => (j === i ? { ...x, name: e.target.value } : x)))} className="field !py-2.5 text-[14px]" placeholder="Colour name" />
                   <button onClick={() => set("colors", d.colors.filter((_, j) => j !== i))} className="grid size-10 shrink-0 place-items-center rounded-full hover:bg-red-50 hover:text-red-600" aria-label="Remove colour">
                     <Trash2 className="size-4" />
@@ -234,9 +234,9 @@ export function CarEditor({ car }: { car?: Car }) {
             <div className="space-y-4">
               <div>
                 <Label>Status</Label>
-                <div className="grid grid-cols-3 gap-1 rounded-2xl bg-paper p-1">
+                <div className="grid grid-cols-3 gap-1 chamfer chamfer-sm bg-paper p-1">
                   {(["available", "reserved", "sold"] as CarStatus[]).map((s) => (
-                    <button key={s} onClick={() => set("status", s)} className={cn("rounded-xl py-2 text-[12.5px] font-medium capitalize transition", d.status === s ? "bg-white shadow-sm" : "text-muted")}>
+                    <button key={s} onClick={() => set("status", s)} className={cn("chamfer chamfer-sm py-2 text-[12.5px] font-medium capitalize transition", d.status === s ? "bg-white shadow-sm" : "text-muted")}>
                       {s}
                     </button>
                   ))}

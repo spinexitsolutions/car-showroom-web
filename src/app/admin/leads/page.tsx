@@ -202,7 +202,7 @@ function Board({
               setDragging(null);
             }}
             className={cn(
-              "flex w-[82vw] shrink-0 snap-start flex-col rounded-3xl border p-2 transition-colors sm:w-[300px]",
+              "flex w-[82vw] shrink-0 snap-start flex-col chamfer border p-2 transition-colors sm:w-[300px]",
               over === s.id ? "border-accent bg-accent/5" : "border-line bg-paper-2/50"
             )}
           >
@@ -210,7 +210,7 @@ function Board({
               <div className="flex items-center gap-2">
                 <span className={cn("size-2 rounded-full", s.dot)} />
                 <span className="text-[13.5px] font-semibold">{s.label}</span>
-                <span className="rounded-full bg-ink/5 px-2 py-0.5 font-mono text-[11px] text-muted">{col.length}</span>
+                <span className="chamfer chamfer-sm bg-ink/5 px-2 py-0.5 font-mono text-[11px] text-muted">{col.length}</span>
               </div>
               <span className="font-mono text-[11px] text-muted">{total ? formatPrice(total) : ""}</span>
             </div>
@@ -231,7 +231,7 @@ function Board({
                 ))}
               </AnimatePresence>
               {col.length === 0 && (
-                <div className="grid flex-1 place-items-center rounded-2xl border border-dashed border-line py-8 text-[12px] text-muted">
+                <div className="grid flex-1 place-items-center chamfer chamfer-sm border border-dashed border-line py-8 text-[12px] text-muted">
                   Drop here
                 </div>
               )}
@@ -268,7 +268,7 @@ function LeadCard({
       }}
       onDragEnd={onDragEnd}
       onClick={() => onOpen(lead.id)}
-      className="group cursor-grab rounded-2xl border border-line bg-white p-3.5 shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-lg hover:shadow-black/5 active:cursor-grabbing"
+      className="group cursor-grab chamfer chamfer-sm border border-line bg-white p-3.5 shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-lg hover:shadow-black/5 active:cursor-grabbing"
     >
       <div className="flex items-start justify-between gap-2">
         <div className="flex min-w-0 items-center gap-2.5">
@@ -281,7 +281,7 @@ function LeadCard({
         <Chip className={PRIORITY_MAP[lead.priority].tone}>{PRIORITY_MAP[lead.priority].label}</Chip>
       </div>
       {car && (
-        <div className="mt-3 flex items-center gap-2 rounded-xl bg-paper p-1.5 pr-2.5">
+        <div className="mt-3 flex items-center gap-2 chamfer chamfer-sm bg-paper p-1.5 pr-2.5">
           <img src={car.images[0]} alt="" className="h-8 w-11 rounded-lg object-cover" />
           <span className="truncate text-[12.5px]">{carName(car)}</span>
         </div>
@@ -301,7 +301,7 @@ function LeadCard({
         value={lead.stage}
         onClick={(e) => e.stopPropagation()}
         onChange={(e) => onMove(lead.id, e.target.value as LeadStage)}
-        className="mt-3 w-full rounded-xl border border-line bg-paper px-2.5 py-1.5 text-[12px] md:hidden"
+        className="mt-3 w-full chamfer chamfer-sm border border-line bg-paper px-2.5 py-1.5 text-[12px] md:hidden"
         aria-label="Move to stage"
       >
         {STAGES.map((s) => (
@@ -319,7 +319,7 @@ function LeadTable({ leads, onOpen }: { leads: Lead[]; onOpen: (id: string) => v
   const staff = useStore((s) => s.staff);
   if (!leads.length)
     return (
-      <div className="rounded-3xl border border-line bg-white/80">
+      <div className="chamfer border border-line bg-white/80">
         <Empty icon={<Inbox className="size-6" />} title="No leads match" text="Try clearing filters or searching for something else." />
       </div>
     );
@@ -331,7 +331,7 @@ function LeadTable({ leads, onOpen }: { leads: Lead[]; onOpen: (id: string) => v
           const car = cars.find((c) => c.id === l.carId);
           return (
             <li key={l.id}>
-              <button onClick={() => onOpen(l.id)} className="flex w-full items-center gap-3 rounded-2xl border border-line bg-white p-3.5 text-left">
+              <button onClick={() => onOpen(l.id)} className="flex w-full items-center gap-3 chamfer chamfer-sm border border-line bg-white p-3.5 text-left">
                 <Avatar name={l.name} size={38} />
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
@@ -347,7 +347,7 @@ function LeadTable({ leads, onOpen }: { leads: Lead[]; onOpen: (id: string) => v
         })}
       </ul>
       {/* Desktop table */}
-      <div className="hidden overflow-hidden rounded-3xl border border-line bg-white/80 md:block">
+      <div className="hidden overflow-hidden chamfer border border-line bg-white/80 md:block">
         <table className="w-full text-left text-[13.5px]">
           <thead className="border-b border-line bg-paper/60">
             <tr className="eyebrow !text-[10px] text-muted">

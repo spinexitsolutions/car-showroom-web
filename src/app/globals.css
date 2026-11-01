@@ -66,6 +66,12 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Admin: buttons placed on the dark page band */
+.on-dark .btn-ghost { background: rgba(255, 255, 255, 0.1); color: #fff; }
+.on-dark .btn-ghost:hover { background: rgba(255, 255, 255, 0.18); }
+.on-dark .btn-ink { background: #fff; color: var(--ink); }
+.on-dark .btn-ink:hover { background: var(--accent); color: var(--accent-ink); }
+
 /* Grid items shouldn't be widened by long content (URLs, inputs) on mobile. */
 @layer base {
   :where(.grid) > * { min-width: 0; }

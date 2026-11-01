@@ -54,7 +54,7 @@ export default function JournalAdmin() {
       }
     >
       {posts.length === 0 ? (
-        <div className="rounded-3xl border border-line bg-white/80">
+        <div className="chamfer border border-line bg-white/80">
           <Empty icon={<Newspaper className="size-6" />} title="No posts yet" text="Write your first story for the Journal." />
         </div>
       ) : (
@@ -69,7 +69,7 @@ export default function JournalAdmin() {
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.97 }}
-                  className="group overflow-hidden rounded-3xl border border-line bg-white"
+                  className="group overflow-hidden chamfer border border-line bg-white"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden bg-paper-2">
                     {p.cover && <img src={p.cover} alt="" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />}

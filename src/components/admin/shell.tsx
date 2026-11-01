@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { LogoMark } from "@/components/site/navbar";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   CalendarClock,
@@ -88,18 +89,25 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   );
 }
 
-function NavList({ collapsed, onNavigate }: { collapsed?: boolean; onNavigate?: () => void }) {
+function NavList({ collapsed, onNavigate, dark }: { collapsed?: boolean; onNavigate?: () => void; dark?: boolean }) {
   const path = usePathname();
   const newLeads = useStore((s) => s.leads.filter((l) => l.stage === "new").length);
+  let n = 0;
   return (
     <nav className="space-y-5">
       {GROUPS.map((g) => (
         <div key={g.label}>
-          {!collapsed && <p className="eyebrow mb-1.5 px-3 !text-[10px] text-muted/70">{g.label}</p>}
+          {!collapsed && (
+            <p className={cn("eyebrow mb-1.5 flex items-center gap-2 px-3 !text-[9.5px]", dark ? "text-white/30" : "text-muted/70")}>
+              <span className="h-px w-3 bg-current" />
+              {g.label}
+            </p>
+          )}
           <ul className="space-y-0.5">
             {g.items.map((it) => {
               const active = isActive(path, it.href);
               const Icon = it.icon;
+              const idx = String(++n).padStart(2, "0");
               return (
                 <li key={it.href}>
                   <Link
@@ -107,25 +115,30 @@ function NavList({ collapsed, onNavigate }: { collapsed?: boolean; onNavigate?: 
                     onClick={onNavigate}
                     title={collapsed ? it.label : undefined}
                     className={cn(
-                      "relative flex h-10 items-center gap-3 rounded-xl px-3 text-[13.5px] font-medium transition-colors",
-                      active ? "text-white" : "text-ink/70 hover:bg-ink/5 hover:text-ink",
+                      "chamfer chamfer-sm relative flex h-10 items-center gap-3 px-3 text-[13.5px] font-medium transition-colors",
+                      dark
+                        ? active ? "text-white" : "text-white/55 hover:bg-white/[0.06] hover:text-white"
+                        : active ? "text-white" : "text-ink/70 hover:bg-ink/5 hover:text-ink",
                       collapsed && "justify-center px-0"
                     )}
                   >
                     {active && (
                       <motion.span
                         layoutId={onNavigate ? "nav-active-m" : "nav-active"}
-                        className="absolute inset-0 rounded-xl bg-ink"
+                        className={cn("absolute inset-0", dark ? "bg-white/[0.09]" : "bg-ink")}
                         transition={{ type: "spring", stiffness: 420, damping: 36 }}
-                      />
+                      >
+                        <span className="absolute inset-y-2 left-0 w-[3px] bg-accent" />
+                      </motion.span>
                     )}
+                    {!collapsed && <span className={cn("hud relative w-5 text-[10px]", active ? "text-accent" : dark ? "text-white/25" : "text-muted")}>{idx}</span>}
                     <Icon className="relative size-[18px] shrink-0" strokeWidth={1.8} />
                     {!collapsed && <span className="relative flex-1 truncate">{it.label}</span>}
                     {!collapsed && it.href === "/admin/leads" && newLeads > 0 && (
                       <span
                         className={cn(
-                          "relative rounded-full px-2 py-0.5 text-[11px] font-semibold",
-                          active ? "bg-white/20 text-white" : "bg-accent text-accent-ink"
+                          "hud relative px-1.5 py-0.5 text-[10.5px]",
+                          "bg-accent text-accent-ink"
                         )}
                       >
                         {newLeads}
@@ -156,27 +169,29 @@ function Frame({ children }: { children: React.ReactNode }) {
       <motion.aside
         animate={{ width: collapsed ? 76 : 260 }}
         transition={{ type: "spring", stiffness: 300, damping: 34 }}
-        className="fixed inset-y-0 left-0 z-40 hidden flex-col border-r border-line bg-paper-2/60 backdrop-blur-xl md:flex"
+        className="fixed inset-y-0 left-0 z-40 hidden flex-col overflow-hidden bg-ink text-white md:flex"
       >
-        <div className={cn("flex h-16 items-center gap-3 px-5", collapsed && "justify-center px-0")}>
-          <Link href="/admin" className="grid size-9 shrink-0 place-items-center rounded-xl bg-ink text-[14px] font-bold text-white">
-            {brand.slice(0, 1)}
+        <div className="pointer-events-none absolute inset-0 opacity-[0.05] [background-image:linear-gradient(rgba(255,255,255,0.8)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.8)_1px,transparent_1px)] [background-size:40px_40px]" />
+        <div className={cn("relative flex h-16 items-center gap-3 border-b border-white/10 px-5", collapsed && "justify-center px-0")}>
+          <Link href="/admin" className="shrink-0">
+            <LogoMark className="h-6 text-white" />
           </Link>
           {!collapsed && (
             <div className="min-w-0">
-              <p className="truncate text-[14px] font-semibold tracking-tight">{brand}</p>
-              <p className="eyebrow !text-[9.5px] text-muted">Dealer OS</p>
+              <p className="truncate text-[16px] font-extrabold uppercase italic leading-none [font-stretch:125%]">{brand}</p>
+              <p className="eyebrow mt-1 !text-[9px] text-white/40">Race control · Dealer OS</p>
             </div>
           )}
         </div>
-        <div className={cn("flex-1 overflow-y-auto pb-4 pt-3", collapsed ? "px-3" : "px-3")}>
-          <NavList collapsed={collapsed} />
+        <div data-lenis-prevent className="relative flex-1 overflow-y-auto px-3 pb-4 pt-4">
+          <NavList collapsed={collapsed} dark />
         </div>
-        <div className="border-t border-line p-3">
+        {!collapsed && <SystemStatus />}
+        <div className="relative border-t border-white/10 p-3">
           <button
             onClick={() => setCollapsed((c) => !c)}
             className={cn(
-              "flex h-10 w-full items-center gap-3 rounded-xl px-3 text-[13px] text-muted hover:bg-ink/5 hover:text-ink",
+              "flex h-10 w-full items-center gap-3 px-3 text-[13px] text-white/50 hover:bg-white/[0.06] hover:text-white",
               collapsed && "justify-center px-0"
             )}
           >
@@ -193,15 +208,15 @@ function Frame({ children }: { children: React.ReactNode }) {
       >
         {/* Top bar */}
         <header className="glass sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-line px-4 md:px-8">
-          <Link href="/admin" className="grid size-9 shrink-0 place-items-center rounded-xl bg-ink text-[14px] font-bold text-white md:hidden">
-            {brand.slice(0, 1)}
+          <Link href="/admin" className="shrink-0 md:hidden">
+            <LogoMark className="h-5 text-ink" />
           </Link>
           <GlobalSearch />
           <div className="ml-auto flex items-center gap-2">
             <Link
               href="/"
               target="_blank"
-              className="hidden h-10 items-center gap-2 rounded-full border border-line bg-white px-4 text-[13px] font-medium hover:bg-paper sm:flex"
+              className="chamfer chamfer-sm hud hidden h-10 items-center gap-2 bg-ink px-4 text-[11.5px] uppercase tracking-[0.12em] text-white transition-colors hover:bg-accent hover:text-accent-ink sm:flex"
             >
               View site <ExternalLink className="size-3.5" />
             </Link>
@@ -217,28 +232,28 @@ function Frame({ children }: { children: React.ReactNode }) {
       </motion.div>
 
       {/* Mobile tab bar */}
-      <nav className="glass fixed inset-x-3 bottom-3 z-40 flex items-center justify-between rounded-[1.4rem] border border-line p-1.5 shadow-xl shadow-black/5 md:hidden" style={{ marginBottom: "env(safe-area-inset-bottom)" }}>
+      <nav className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-between border-t border-white/10 bg-ink/95 px-1.5 pt-1.5 text-white backdrop-blur-xl md:hidden" style={{ paddingBottom: "max(6px, env(safe-area-inset-bottom))" }}>
         {MOBILE_TABS.map((t) => {
           const active = isActive(path, t.href);
           const Icon = t.icon;
           return (
-            <Link key={t.href} href={t.href} className="relative flex flex-1 flex-col items-center gap-0.5 rounded-2xl py-2">
+            <Link key={t.href} href={t.href} className="relative flex flex-1 flex-col items-center gap-0.5 py-2">
               {active && (
-                <motion.span layoutId="tab-active" className="absolute inset-0 rounded-2xl bg-ink" transition={{ type: "spring", stiffness: 420, damping: 36 }} />
+                <motion.span layoutId="tab-active" className="absolute inset-x-3 top-0 h-[2px] bg-accent" transition={{ type: "spring", stiffness: 420, damping: 36 }} />
               )}
-              <Icon className={cn("relative size-5", active ? "text-white" : "text-ink/60")} strokeWidth={1.8} />
-              <span className={cn("relative text-[10.5px] font-medium", active ? "text-white" : "text-ink/60")}>{t.label}</span>
+              <Icon className={cn("relative size-5", active ? "text-white" : "text-white/45")} strokeWidth={1.8} />
+              <span className={cn("hud relative text-[10px] uppercase tracking-[0.08em]", active ? "text-white" : "text-white/45")}>{t.label}</span>
             </Link>
           );
         })}
-        <button onClick={() => setMoreOpen(true)} className="flex flex-1 flex-col items-center gap-0.5 py-2 text-ink/60">
+        <button onClick={() => setMoreOpen(true)} className="flex flex-1 flex-col items-center gap-0.5 py-2 text-white/45">
           <MoreHorizontal className="size-5" />
-          <span className="text-[10.5px] font-medium">More</span>
+          <span className="hud text-[10px] uppercase tracking-[0.08em]">More</span>
         </button>
       </nav>
       <Drawer open={moreOpen} onClose={() => setMoreOpen(false)} title="Menu">
         <NavList onNavigate={() => setMoreOpen(false)} />
-        <Link href="/" target="_blank" className="mt-6 flex h-11 items-center justify-center gap-2 rounded-full border border-line bg-white text-[14px] font-medium">
+        <Link href="/" target="_blank" className="chamfer chamfer-sm hud mt-6 flex h-11 items-center justify-center gap-2 bg-ink text-[12px] uppercase tracking-[0.12em] text-white">
           View website <ExternalLink className="size-4" />
         </Link>
       </Drawer>
@@ -267,16 +282,16 @@ function UserMenu({ name, email, onLogout }: { name: string; email: string; onLo
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -6, scale: 0.97 }}
             transition={{ duration: 0.18 }}
-            className="absolute right-0 top-12 w-60 origin-top-right rounded-2xl border border-line bg-white p-2 shadow-2xl shadow-black/10"
+            className="absolute right-0 top-12 w-60 origin-top-right chamfer chamfer-sm border border-line bg-white p-2 shadow-2xl shadow-black/10"
           >
             <div className="px-3 py-2">
               <p className="text-[14px] font-semibold">{name}</p>
               <p className="text-[12px] text-muted">{email}</p>
             </div>
-            <Link href="/admin/settings" onClick={() => setOpen(false)} className="flex items-center gap-2 rounded-xl px-3 py-2 text-[13px] hover:bg-paper">
+            <Link href="/admin/settings" onClick={() => setOpen(false)} className="flex items-center gap-2 chamfer chamfer-sm px-3 py-2 text-[13px] hover:bg-paper">
               <Settings className="size-4" /> Settings
             </Link>
-            <button onClick={onLogout} className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-[13px] text-red-600 hover:bg-red-50">
+            <button onClick={onLogout} className="flex w-full items-center gap-2 chamfer chamfer-sm px-3 py-2 text-[13px] text-red-600 hover:bg-red-50">
               <LogOut className="size-4" /> Sign out
             </button>
           </motion.div>
@@ -343,7 +358,7 @@ function GlobalSearch() {
             initial={{ opacity: 0, y: -4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
-            className="absolute inset-x-0 top-12 z-50 overflow-hidden rounded-2xl border border-line bg-white p-1.5 shadow-2xl shadow-black/10"
+            className="absolute inset-x-0 top-12 z-50 overflow-hidden chamfer chamfer-sm border border-line bg-white p-1.5 shadow-2xl shadow-black/10"
           >
             {results.length === 0 ? (
               <p className="px-3 py-4 text-center text-[13px] text-muted">No matches for “{q}”</p>
@@ -358,7 +373,7 @@ function GlobalSearch() {
                     setOpen(false);
                     inputRef.current?.blur();
                   }}
-                  className="flex w-full items-center gap-3 rounded-xl px-2.5 py-2 text-left hover:bg-paper"
+                  className="flex w-full items-center gap-3 chamfer chamfer-sm px-2.5 py-2 text-left hover:bg-paper"
                 >
                   {r.img ? (
                     <img src={r.img} alt="" className="size-9 rounded-lg object-cover" />
@@ -375,6 +390,41 @@ function GlobalSearch() {
           </motion.div>
         )}
       </AnimatePresence>
+    </div>
+  );
+}
+
+/** Sidebar telemetry: live clock + pipeline pulse. */
+function SystemStatus() {
+  const leads = useStore((s) => s.leads);
+  const [now, setNow] = useState<string>("--:--:--");
+  useEffect(() => {
+    const t = () => setNow(new Date().toLocaleTimeString("en-IN", { hour12: false }));
+    t();
+    const id = setInterval(t, 1000);
+    return () => clearInterval(id);
+  }, []);
+  const open = leads.filter((l) => l.stage !== "won" && l.stage !== "lost").length;
+  const hot = leads.filter((l) => l.priority === "high" && l.stage !== "won" && l.stage !== "lost").length;
+  return (
+    <div className="relative mx-3 mb-3 border border-white/10 p-3 brackets text-white/20">
+      <div className="flex items-center justify-between">
+        <span className="eyebrow !text-[9px] text-white/40">System</span>
+        <span className="flex items-center gap-1.5 text-[10px] text-emerald-400">
+          <span className="size-1.5 animate-pulse rounded-full bg-emerald-400" /> <span className="hud">LIVE</span>
+        </span>
+      </div>
+      <p className="hud mt-2 text-[22px] text-white">{now}</p>
+      <div className="mt-2 grid grid-cols-2 gap-2 border-t border-white/10 pt-2">
+        <div>
+          <p className="eyebrow !text-[8.5px] text-white/35">Open deals</p>
+          <p className="hud text-[15px] text-white">{open}</p>
+        </div>
+        <div>
+          <p className="eyebrow !text-[8.5px] text-white/35">Hot leads</p>
+          <p className="hud text-[15px] text-accent">{hot}</p>
+        </div>
+      </div>
     </div>
   );
 }

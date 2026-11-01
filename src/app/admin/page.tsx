@@ -9,6 +9,7 @@ import { carName, cn, EASE, formatPrice, timeAgo } from "@/lib/utils";
 import { AdminPage, Avatar, Card, Chip, Empty } from "@/components/admin/ui";
 import { BarChart, Donut, Funnel, Sparkline } from "@/components/admin/charts";
 import { STAGES, TYPE_MAP } from "@/components/admin/constants";
+import { Gauge } from "@/components/site/hud";
 
 const DAY = 86400000;
 const dayKey = (d: Date) => d.toISOString().slice(0, 10);
@@ -131,15 +132,44 @@ export default function Dashboard() {
       italic={user?.name.split(" ")[0] ?? "there"}
       actions={
         <>
-          <Link href="/admin/leads" className="inline-flex h-10 items-center gap-2 rounded-full border border-line bg-white px-4 text-[13px] font-medium hover:bg-paper">
+          <Link href="/admin/leads" className="btn-ghost hud inline-flex h-10 items-center gap-2 chamfer chamfer-sm px-4 text-[11.5px] uppercase tracking-[0.1em]">
             Open pipeline
           </Link>
-          <Link href="/admin/inventory/new" className="inline-flex h-10 items-center gap-2 rounded-full bg-ink px-4 text-[13px] font-medium text-white">
+          <Link href="/admin/inventory/new" className="btn-ink hud inline-flex h-10 items-center gap-2 chamfer chamfer-sm px-4 text-[11.5px] uppercase tracking-[0.1em]">
             Add car <ArrowUpRight className="size-4" />
           </Link>
         </>
       }
     >
+      {/* Instrument cluster */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: EASE }}
+        className="chamfer chamfer-lg relative mb-4 overflow-hidden bg-ink text-white"
+      >
+        <div className="pointer-events-none absolute inset-0 opacity-[0.05] [background-image:linear-gradient(rgba(255,255,255,0.8)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.8)_1px,transparent_1px)] [background-size:48px_48px]" />
+        <div className="relative flex items-center justify-between border-b border-white/10 px-5 py-3">
+          <span className="hud flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-white/60">
+            <span className="h-3 w-[3px] bg-accent" /> Showroom telemetry
+          </span>
+          <span className="hud flex items-center gap-1.5 text-[10px] text-emerald-400">
+            <span className="size-1.5 animate-pulse rounded-full bg-emerald-400" /> LIVE
+          </span>
+        </div>
+        <div className="no-scrollbar relative flex snap-x items-center gap-2 overflow-x-auto p-4 sm:grid sm:grid-cols-3 sm:overflow-visible md:p-6">
+          {[
+            { v: stats.conv, max: 100, label: "Win rate", suffix: "%" },
+            { v: stats.weekLeads, max: Math.max(20, Math.ceil(stats.weekLeads / 10) * 10), label: "Leads · 7 days", suffix: "" },
+            { v: cars.length ? Math.round((available / cars.length) * 100) : 0, max: 100, label: "Stock available", suffix: "%" },
+          ].map((g) => (
+            <div key={g.label} className="flex shrink-0 snap-center justify-center">
+              <Gauge hp={g.v} max={g.max} label={g.label} suffix={g.suffix} size="size-[200px]" />
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
       {/* KPIs */}
       <div className="no-scrollbar -mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-1 md:mx-0 md:grid md:grid-cols-3 md:px-0 xl:grid-cols-5">
         {kpis.map((k, i) => {
@@ -151,19 +181,19 @@ export default function Dashboard() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: EASE, delay: i * 0.05 }}
               className={cn(
-                "relative min-w-[240px] snap-start overflow-hidden rounded-3xl border border-line p-5 md:min-w-0",
-                i === 0 ? "bg-ink text-white" : "bg-white/80"
+                "relative min-w-[240px] snap-start overflow-hidden chamfer p-5 md:min-w-0",
+                i === 0 ? "bg-accent text-accent-ink" : "bg-white"
               )}
             >
               <div className="flex items-center justify-between">
-                <span className={cn("eyebrow !text-[10px]", i === 0 ? "text-white/50" : "text-muted")}>{k.label}</span>
-                <span className={cn("grid size-8 place-items-center rounded-full", i === 0 ? "bg-white/10" : "bg-ink/5")}>
+                <span className={cn("eyebrow !text-[10px]", i === 0 ? "opacity-70" : "text-muted")}>{k.label}</span>
+                <span className={cn("chamfer chamfer-sm grid size-8 place-items-center", i === 0 ? "bg-black/15" : "bg-ink/5")}>
                   <Icon className="size-4" />
                 </span>
               </div>
-              <p className="mt-5 text-[32px] font-semibold leading-none tracking-[-0.04em]">{k.value}</p>
+              <p className="hud mt-5 text-[30px] leading-none">{k.value}</p>
               <div className="mt-3 flex items-end justify-between gap-2">
-                <p className={cn("text-[12px]", i === 0 ? "text-white/60" : k.up === false ? "text-red-600" : k.up ? "text-emerald-600" : "text-muted")}>
+                <p className={cn("text-[12px]", i === 0 ? "opacity-75" : k.up === false ? "text-red-600" : k.up ? "text-emerald-600" : "text-muted")}>
                   {k.sub}
                 </p>
                 {k.spark && <Sparkline values={k.spark} />}
@@ -198,7 +228,7 @@ export default function Dashboard() {
                 return (
                   <li key={l.id}>
                     <Link href={`/admin/leads?lead=${l.id}`} className="flex items-center gap-3 px-5 py-3 hover:bg-paper/60">
-                      <div className="grid w-12 shrink-0 place-items-center rounded-xl bg-paper py-1.5 text-center">
+                      <div className="grid w-12 shrink-0 place-items-center chamfer chamfer-sm bg-paper py-1.5 text-center">
                         <span className="eyebrow !text-[9px] text-accent">{d.toLocaleDateString("en-IN", { month: "short" })}</span>
                         <span className="text-[18px] font-semibold leading-none">{d.getDate()}</span>
                       </div>

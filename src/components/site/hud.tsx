@@ -30,16 +30,27 @@ const R = 82;
 const C = 2 * Math.PI * R;
 
 /** Speedometer: 240° arc with ticks; the needle springs to the car's power. */
-export function Gauge({ hp }: { hp: number }) {
-  const MAX = 1100;
+export function Gauge({
+  hp,
+  max: MAX = 1100,
+  label = "Horsepower",
+  suffix = "",
+  size = "size-[min(210px,24vh)]",
+}: {
+  hp: number;
+  max?: number;
+  label?: string;
+  suffix?: string;
+  size?: string;
+}) {
   const angle = useSpring(-120, { stiffness: 60, damping: 14, mass: 1.2 });
   useEffect(() => {
     angle.set(-120 + 240 * Math.min(1, hp / MAX));
-  }, [hp, angle]);
+  }, [hp, angle, MAX]);
   const rotate = useTransform(angle, (a) => `rotate(${a}deg)`);
   const dash = useTransform(angle, (a) => `${((a + 120) / 360) * C} ${C}`);
   return (
-    <div className="relative size-[min(210px,24vh)]">
+    <div className={`relative ${size}`}>
       <svg viewBox="0 0 200 200" className="size-full">
         <circle cx="100" cy="100" r={R} fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="2"
           strokeDasharray={`${(240 / 360) * C} ${C}`} transform="rotate(150 100 100)" />
@@ -60,7 +71,7 @@ export function Gauge({ hp }: { hp: number }) {
           return (
             <text key={i} x={100 + Math.cos(a) * 52} y={100 + Math.sin(a) * 52 + 3} textAnchor="middle"
               fill="rgba(255,255,255,0.4)" fontSize="8" fontWeight="600">
-              {Math.round((i / 24) * MAX / 100) * 100}
+              {MAX >= 500 ? Math.round(((i / 24) * MAX) / 100) * 100 : Math.round((i / 24) * MAX)}
             </text>
           );
         })}
@@ -70,8 +81,8 @@ export function Gauge({ hp }: { hp: number }) {
         <circle cx="100" cy="100" r="6" fill="#0a0a0c" stroke="var(--accent)" strokeWidth="2" />
       </svg>
       <div className="absolute inset-x-0 bottom-5 text-center">
-        <p className="display text-4xl text-white"><Tween value={hp} /></p>
-        <p className="eyebrow mt-1 text-white/45">Horsepower</p>
+        <p className="display text-4xl text-white"><Tween value={hp} />{suffix && <span className="text-[0.55em] text-white/50">{suffix}</span>}</p>
+        <p className="eyebrow mt-1 text-white/45">{label}</p>
       </div>
     </div>
   );

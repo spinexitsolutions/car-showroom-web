@@ -66,23 +66,23 @@ export function LeadDrawer({ lead, onClose }: { lead: Lead | null; onClose: () =
       {lead && (
         <div className="space-y-6">
           <div className="grid grid-cols-3 gap-2">
-            <a href={`tel:${lead.phone}`} className="flex flex-col items-center gap-1.5 rounded-2xl bg-white py-3 text-[12px] font-medium hover:bg-paper-2">
+            <a href={`tel:${lead.phone}`} className="flex flex-col items-center gap-1.5 chamfer chamfer-sm bg-white py-3 text-[12px] font-medium hover:bg-paper-2">
               <Phone className="size-4" /> Call
             </a>
-            <a href={`mailto:${lead.email}`} className="flex flex-col items-center gap-1.5 rounded-2xl bg-white py-3 text-[12px] font-medium hover:bg-paper-2">
+            <a href={`mailto:${lead.email}`} className="flex flex-col items-center gap-1.5 chamfer chamfer-sm bg-white py-3 text-[12px] font-medium hover:bg-paper-2">
               <Mail className="size-4" /> Email
             </a>
             <a
               href={`https://wa.me/${wa}?text=${encodeURIComponent(`Hi ${lead.name.split(" ")[0]}, this is from Orbis Motors regarding your ${TYPE_MAP[lead.type].label.toLowerCase()}.`)}`}
               target="_blank"
               rel="noreferrer"
-              className="flex flex-col items-center gap-1.5 rounded-2xl bg-[#25D366] py-3 text-[12px] font-medium text-white"
+              className="flex flex-col items-center gap-1.5 chamfer chamfer-sm bg-[#25D366] py-3 text-[12px] font-medium text-white"
             >
               <MessageCircle className="size-4" /> WhatsApp
             </a>
           </div>
 
-          <div className="grid gap-3 rounded-2xl bg-white p-4 text-[13.5px] sm:grid-cols-2">
+          <div className="grid gap-3 chamfer chamfer-sm bg-white p-4 text-[13.5px] sm:grid-cols-2">
             <Info k="Phone" v={lead.phone} />
             <Info k="Email" v={lead.email} />
             <Info k="Type" v={<Chip className={TYPE_MAP[lead.type].tone}>{TYPE_MAP[lead.type].label}</Chip>} />
@@ -102,13 +102,13 @@ export function LeadDrawer({ lead, onClose }: { lead: Lead | null; onClose: () =
             {lead.message && (
               <div className="sm:col-span-2">
                 <Label>Message</Label>
-                <p className="rounded-xl bg-paper p-3 leading-relaxed text-ink/80">“{lead.message}”</p>
+                <p className="chamfer chamfer-sm bg-paper p-3 leading-relaxed text-ink/80">“{lead.message}”</p>
               </div>
             )}
           </div>
 
           {car && (
-            <Link href={`/admin/inventory/${car.id}`} className="flex items-center gap-3 rounded-2xl bg-white p-3 hover:bg-paper-2">
+            <Link href={`/admin/inventory/${car.id}`} className="flex items-center gap-3 chamfer chamfer-sm bg-white p-3 hover:bg-paper-2">
               <img src={car.images[0]} alt="" className="h-14 w-20 rounded-xl object-cover" />
               <div className="min-w-0 flex-1">
                 <p className="eyebrow !text-[10px] text-muted">Interested in</p>
@@ -125,7 +125,7 @@ export function LeadDrawer({ lead, onClose }: { lead: Lead | null; onClose: () =
                 <button
                   key={s.id}
                   onClick={() => updateLead(lead.id, { stage: s.id })}
-                  className={`relative flex shrink-0 items-center gap-2 rounded-full px-3.5 py-2 text-[12.5px] font-medium transition-colors ${
+                  className={`relative flex shrink-0 items-center gap-2 chamfer chamfer-sm px-3.5 py-2 text-[12.5px] font-medium transition-colors ${
                     lead.stage === s.id ? "text-white" : "bg-white text-ink/70 hover:text-ink"
                   }`}
                 >
@@ -191,7 +191,7 @@ export function LeadDrawer({ lead, onClose }: { lead: Lead | null; onClose: () =
                     layout
                     initial={{ opacity: 0, y: -8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="rounded-2xl border border-line bg-white p-3.5"
+                    className="chamfer chamfer-sm border border-line bg-white p-3.5"
                   >
                     <p className="text-[13.5px] leading-relaxed">{n.text}</p>
                     <p className="mt-1.5 font-mono text-[10.5px] text-muted">

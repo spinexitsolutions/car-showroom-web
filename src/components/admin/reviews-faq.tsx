@@ -17,7 +17,7 @@ function SubNav({ active }: { active: "testimonials" | "faqs" }) {
         <Link
           key={t}
           href={`/admin/${t}`}
-          className={cn("relative rounded-full px-4 py-2 text-[13px] font-medium", active === t ? "text-white" : "text-muted hover:text-ink")}
+          className={cn("relative chamfer chamfer-sm px-4 py-2 text-[13px] font-medium", active === t ? "text-white" : "text-muted hover:text-ink")}
         >
           {active === t && <motion.span layoutId="rf-pill" className="absolute inset-0 rounded-full bg-ink" />}
           <span className="relative">{t === "faqs" ? "FAQs" : "Testimonials"}</span>
@@ -47,14 +47,14 @@ export function TestimonialsManager() {
     >
       <SubNav active="testimonials" />
       {items.length === 0 ? (
-        <div className="rounded-3xl border border-line bg-white/80">
+        <div className="chamfer border border-line bg-white/80">
           <Empty icon={<MessageSquareQuote className="size-6" />} title="No testimonials" />
         </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
           <AnimatePresence>
             {items.map((t) => (
-              <motion.figure key={t.id} layout initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.97 }} className="flex flex-col rounded-3xl border border-line bg-white p-6">
+              <motion.figure key={t.id} layout initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.97 }} className="flex flex-col chamfer border border-line bg-white p-6">
                 <div className="flex gap-0.5 text-accent">
                   {Array.from({ length: 5 }, (_, i) => (
                     <Star key={i} className={cn("size-4", i < t.rating ? "fill-current" : "opacity-25")} />
@@ -142,7 +142,7 @@ export function FaqManager() {
     >
       <SubNav active="faqs" />
       {faqs.length === 0 ? (
-        <div className="rounded-3xl border border-line bg-white/80">
+        <div className="chamfer border border-line bg-white/80">
           <Empty icon={<HelpCircle className="size-6" />} title="No FAQs yet" />
         </div>
       ) : (

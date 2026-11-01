@@ -64,7 +64,7 @@ export default function TestDrivesPage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05, ease: EASE, duration: 0.5 }}
-            className="rounded-3xl border border-line bg-white/80 p-4"
+            className="chamfer border border-line bg-white/80 p-4"
           >
             <p className="eyebrow !text-[10px] text-muted">{s.k}</p>
             <p className="mt-2 text-3xl font-semibold tracking-tight">{s.v}</p>
@@ -85,7 +85,7 @@ export default function TestDrivesPage() {
       />
 
       {groups.length === 0 ? (
-        <div className="rounded-3xl border border-line bg-white/80">
+        <div className="chamfer border border-line bg-white/80">
           <Empty icon={<CalendarClock className="size-6" />} title="No test drives here" text="Bookings made on the website show up on this agenda automatically." />
         </div>
       ) : (
@@ -110,7 +110,7 @@ export default function TestDrivesPage() {
                   const owner = staff.find((s) => s.id === l.assignedTo);
                   const status = l.meta?.["Test drive"];
                   return (
-                    <li key={l.id} className="flex flex-col gap-4 rounded-3xl border border-line bg-white/90 p-4 sm:flex-row sm:items-center">
+                    <li key={l.id} className="flex flex-col gap-4 chamfer border border-line bg-white/90 p-4 sm:flex-row sm:items-center">
                       <div className="flex items-center gap-4 sm:w-24 sm:flex-col sm:items-start sm:gap-0">
                         <span className="text-[22px] font-semibold tracking-tight">{l.preferredTime ?? "--:--"}</span>
                         <Chip className={cn("sm:mt-1", status === "Completed" ? "bg-emerald-500/10 text-emerald-700" : status === "No-show" ? "bg-red-500/10 text-red-600" : "bg-ink/5 text-muted")}>

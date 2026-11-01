@@ -38,7 +38,10 @@ npm run dev        # http://localhost:3000
 
 ## Admin panel (`/admin`)
 
-- **Dashboard:** pipeline value, new leads, upcoming test drives, stock, win rate, leads-per-day chart, lead-source donut, stage funnel, activity feed.
+The admin panel uses the same instrument-cluster style as the website: dark sidebar with numbered navigation, a live clock and a pipeline status box; a dark header band on every admin page; chamfered panels; and *Chakra Petch* numbers.
+
+
+- **Dashboard:** "Showroom telemetry" with three speedometer-style gauges (win rate, leads in the last 7 days, share of stock available), plus pipeline value, new leads, upcoming test drives, stock, win rate, leads-per-day chart, lead-source donut, stage funnel, activity feed.
 - **CRM:**
   - **Leads & pipeline:** Kanban board with drag-and-drop, or a table view. Filters, CSV export, and a lead drawer with call / email / WhatsApp buttons, stage, priority, owner, deal value and notes timeline.
   - **Test drives:** agenda view where you mark each drive as done or no-show.

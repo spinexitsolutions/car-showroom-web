@@ -23,21 +23,34 @@ export function AdminPage({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: EASE }}
-      className="mx-auto w-full max-w-[1400px] px-4 pb-28 pt-6 md:px-8 md:pb-16 md:pt-8"
+      className="w-full pb-28 md:pb-16"
     >
-      <div className="mb-6 flex flex-col gap-4 md:mb-8 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p className="eyebrow flex items-center gap-2 text-muted">
-            <span className="size-1.5 rounded-full bg-accent" />
-            {eyebrow}
-          </p>
-          <h1 className="mt-2 text-[32px] font-semibold leading-none tracking-[-0.04em] md:text-[44px]">
-            {title} {italic && <span className="em-light text-muted">{italic}</span>}
-          </h1>
+      {/* Dark "stage" band — same language as the public site's page headers */}
+      <div className="relative overflow-hidden bg-ink text-white">
+        <div className="pointer-events-none absolute inset-0 opacity-[0.06] [background-image:linear-gradient(rgba(255,255,255,0.8)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.8)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:linear-gradient(to_right,black,transparent_85%)]" />
+        <div className="pointer-events-none absolute -right-20 -top-24 size-72 rounded-full bg-accent/25 blur-[90px]" />
+        <div className="on-dark relative mx-auto flex max-w-[1400px] flex-col gap-5 px-4 pb-14 pt-7 md:flex-row md:items-end md:justify-between md:px-8 md:pb-16 md:pt-9">
+          <div className="min-w-0">
+            <p className="eyebrow flex items-center gap-2.5 text-white/55">
+              <span className="h-px w-6 bg-accent" />
+              {eyebrow}
+            </p>
+            <h1 className="display mt-3 text-[34px] md:text-[52px]">
+              <motion.span className="inline-block" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.6, ease: EASE }}>
+                {title}
+              </motion.span>{" "}
+              {italic && (
+                <motion.span className="em-light inline-block text-white/60" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.6, ease: EASE, delay: 0.08 }}>
+                  {italic}
+                </motion.span>
+              )}
+            </h1>
+          </div>
+          {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
         </div>
-        {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
+        <div className="absolute inset-x-0 bottom-0 h-6 rounded-t-[1.5rem] bg-paper md:h-8 md:rounded-t-[2rem]" />
       </div>
-      {children}
+      <div className="mx-auto max-w-[1400px] px-4 pt-2 md:px-8">{children}</div>
     </motion.div>
   );
 }
@@ -56,10 +69,13 @@ export function Card({
   pad?: boolean;
 }) {
   return (
-    <section className={cn("rounded-3xl border border-line bg-white/80 shadow-[0_1px_0_rgba(0,0,0,0.02)]", className)}>
+    <section className={cn("chamfer relative bg-white", className)}>
       {(title || action) && (
-        <div className="flex items-center justify-between gap-3 border-b border-line px-5 py-4">
-          <h3 className="text-[15px] font-semibold tracking-tight">{title}</h3>
+        <div className="flex items-center justify-between gap-3 border-b border-line px-5 py-3.5">
+          <h3 className="hud flex items-center gap-2 text-[12px] uppercase tracking-[0.12em]">
+            <span className="h-3 w-[3px] bg-accent" />
+            {title}
+          </h3>
           {action}
         </div>
       )}
@@ -86,10 +102,10 @@ export function Btn({
   title?: string;
 }) {
   const v = {
-    ink: "bg-ink text-white hover:bg-ink-2",
-    accent: "bg-accent text-accent-ink hover:brightness-110",
-    ghost: "border border-line bg-white hover:bg-paper",
-    danger: "border border-red-500/20 bg-red-500/5 text-red-600 hover:bg-red-500/10",
+    ink: "btn-ink bg-ink text-white hover:bg-accent hover:text-accent-ink",
+    accent: "btn-accent bg-accent text-accent-ink hover:brightness-110",
+    ghost: "btn-ghost bg-ink/[0.06] text-ink hover:bg-ink/10",
+    danger: "bg-red-500/10 text-red-600 hover:bg-red-500/15",
     plain: "hover:bg-ink/5",
   }[variant];
   return (
@@ -99,7 +115,7 @@ export function Btn({
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        "inline-flex h-10 items-center justify-center gap-2 rounded-full px-4 text-[13px] font-medium tracking-tight transition-all active:scale-[0.97] disabled:pointer-events-none disabled:opacity-40",
+        "chamfer chamfer-sm hud inline-flex h-10 items-center justify-center gap-2 px-4 text-[11.5px] uppercase tracking-[0.1em] transition-all active:scale-[0.97] disabled:pointer-events-none disabled:opacity-40",
         v,
         className
       )}
@@ -225,20 +241,20 @@ export function Tabs<T extends string>({
 }) {
   return (
     <div className={cn("no-scrollbar -mx-4 overflow-x-auto px-4 md:mx-0 md:px-0", className)}>
-      <div className="inline-flex gap-1 rounded-full border border-line bg-white p-1">
+      <div className="chamfer chamfer-sm inline-flex gap-1 bg-white p-1">
         {tabs.map((t) => (
           <button
             key={t.id}
             onClick={() => onChange(t.id)}
             className={cn(
-              "relative whitespace-nowrap rounded-full px-4 py-2 text-[13px] font-medium transition-colors",
+              "hud relative whitespace-nowrap px-4 py-2 text-[11.5px] uppercase tracking-[0.08em] transition-colors",
               value === t.id ? "text-white" : "text-muted hover:text-ink"
             )}
           >
             {value === t.id && (
               <motion.span
                 layoutId={`${id}-pill`}
-                className="absolute inset-0 rounded-full bg-ink"
+                className="absolute inset-0 bg-ink"
                 transition={{ type: "spring", stiffness: 400, damping: 34 }}
               />
             )}
@@ -252,7 +268,7 @@ export function Tabs<T extends string>({
 
 export function Chip({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <span className={cn("inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1 text-[11.5px] font-medium", className)}>
+    <span className={cn("hud inline-flex items-center gap-1.5 whitespace-nowrap px-2 py-0.5 text-[10.5px] uppercase tracking-[0.06em]", className)}>
       {children}
     </span>
   );
@@ -361,7 +377,7 @@ export function Drawer({
 export function Empty({ icon, title, text }: { icon: React.ReactNode; title: string; text?: string }) {
   return (
     <div className="flex flex-col items-center justify-center px-6 py-14 text-center">
-      <div className="grid size-14 place-items-center rounded-2xl bg-ink/5 text-muted">{icon}</div>
+      <div className="chamfer chamfer-sm grid size-14 place-items-center bg-ink/5 text-muted">{icon}</div>
       <p className="mt-4 font-semibold tracking-tight">{title}</p>
       {text && <p className="mt-1 max-w-xs text-[13px] text-muted">{text}</p>}
     </div>
@@ -389,7 +405,7 @@ export function SearchInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="field !rounded-full !py-2.5 !pl-10 text-[14px]"
+        className="field !py-2.5 !pl-10 text-[14px]"
       />
     </div>
   );

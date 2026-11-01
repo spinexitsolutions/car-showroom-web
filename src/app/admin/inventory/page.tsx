@@ -61,7 +61,7 @@ export default function InventoryAdmin() {
       title="Inventory"
       italic={`· ${cars.length} cars`}
       actions={
-        <Link href="/admin/inventory/new" className="inline-flex h-10 items-center gap-2 rounded-full bg-ink px-4 text-[13px] font-medium text-white">
+        <Link href="/admin/inventory/new" className="inline-flex h-10 items-center gap-2 chamfer chamfer-sm bg-ink px-4 text-[13px] font-medium text-white">
           <Plus className="size-4" /> Add car
         </Link>
       }
@@ -88,7 +88,7 @@ export default function InventoryAdmin() {
       </div>
 
       {list.length === 0 ? (
-        <div className="rounded-3xl border border-line bg-white/80">
+        <div className="chamfer border border-line bg-white/80">
           <Empty icon={<CarFront className="size-6" />} title="No cars match" text="Adjust filters or add a new car to inventory." />
         </div>
       ) : view === "grid" ? (
@@ -103,14 +103,14 @@ export default function InventoryAdmin() {
                   initial={{ opacity: 0, scale: 0.97 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.97 }}
-                  className="group overflow-hidden rounded-3xl border border-line bg-white"
+                  className="group overflow-hidden chamfer border border-line bg-white"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <img src={c.images[0]} alt="" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                     <button
                       onClick={() => cycleStatus(c.id, c.status)}
-                      className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-[12px] font-medium backdrop-blur"
+                      className="absolute left-3 top-3 flex items-center gap-1.5 chamfer chamfer-sm bg-white/90 px-3 py-1.5 text-[12px] font-medium backdrop-blur"
                       title="Click to change status"
                     >
                       <span className={cn("size-2 rounded-full", st.tone)} /> {st.label}
@@ -148,7 +148,7 @@ export default function InventoryAdmin() {
           </AnimatePresence>
         </motion.div>
       ) : (
-        <div className="overflow-hidden rounded-3xl border border-line bg-white/80">
+        <div className="overflow-hidden chamfer border border-line bg-white/80">
           <ul className="divide-y divide-line">
             {list.map((c) => (
               <li key={c.id} className="flex items-center gap-3 px-4 py-3 md:gap-4 md:px-5">
@@ -165,7 +165,7 @@ export default function InventoryAdmin() {
                     updateCar(c.id, { status: e.target.value as CarStatus });
                     toast(`Marked as ${e.target.value}`);
                   }}
-                  className="rounded-full border border-line bg-white px-3 py-1.5 text-[12px]"
+                  className="chamfer chamfer-sm border border-line bg-white px-3 py-1.5 text-[12px]"
                 >
                   {STATUS.map((s) => <option key={s.id} value={s.id}>{s.label}</option>)}
                 </select>

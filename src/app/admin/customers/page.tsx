@@ -76,7 +76,7 @@ export default function CustomersPage() {
       </div>
 
       {customers.length === 0 ? (
-        <div className="rounded-3xl border border-line bg-white/80">
+        <div className="chamfer border border-line bg-white/80">
           <Empty icon={<Users className="size-6" />} title="No customers found" />
         </div>
       ) : (
@@ -87,7 +87,7 @@ export default function CustomersPage() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: Math.min(i * 0.03, 0.3), duration: 0.5, ease: EASE }}
-              className="group rounded-3xl border border-line bg-white/90 p-5 transition-shadow hover:shadow-xl hover:shadow-black/5"
+              className="group chamfer border border-line bg-white/90 p-5 transition-shadow hover:shadow-xl hover:shadow-black/5"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex min-w-0 items-center gap-3">

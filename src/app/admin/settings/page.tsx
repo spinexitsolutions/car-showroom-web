@@ -89,7 +89,7 @@ export default function SettingsPage() {
               <textarea rows={3} value={draft.seo.description} onChange={(e) => patch("seo", { ...draft.seo, description: e.target.value })} className="field resize-none !py-2.5 text-[14px]" />
               <span className="mt-1 block text-[12px] text-muted">{draft.seo.description.length}/160</span>
             </label>
-            <div className="rounded-2xl bg-white p-4">
+            <div className="chamfer chamfer-sm bg-white p-4">
               <p className="truncate text-[12px] text-emerald-700">orbismotors.in</p>
               <p className="truncate text-[17px] text-[#1a0dab]">{draft.seo.title}</p>
               <p className="line-clamp-2 text-[13px] text-muted">{draft.seo.description}</p>
