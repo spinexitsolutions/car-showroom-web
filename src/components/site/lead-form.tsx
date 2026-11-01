@@ -95,7 +95,7 @@ export function LeadForm({
               initial={{ scale: 0, rotate: -45 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ type: "spring", stiffness: 260, damping: 16, delay: 0.1 }}
-              className="grid size-16 place-items-center rounded-full bg-accent text-white"
+              className="grid size-16 place-items-center rounded-full bg-accent text-accent-ink"
             >
               <Check className="size-7" strokeWidth={2.5} />
             </motion.div>

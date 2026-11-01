@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { SplitText, Reveal } from "./motion";
 
-/** Eyebrow index + big headline with serif-italic emphasis. */
+/** Eyebrow index + big headline with light-weight emphasis. */
 export function SectionHeading({
   index,
   eyebrow,
@@ -35,7 +35,7 @@ export function SectionHeading({
         {italic && (
           <>
             {" "}
-            <SplitText text={italic} wordClassName="serif-i" delay={0.15} />
+            <SplitText text={italic} wordClassName="em-light" delay={0.15} />
           </>
         )}
       </h2>

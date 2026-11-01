@@ -1,15 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Saira, Chakra_Petch } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 
-const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
-const instrument = Instrument_Serif({
-  variable: "--font-instrument",
+// Saira (variable width) — motorsport-born sans for display + body.
+const saira = Saira({
+  variable: "--font-saira",
   subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
+  axes: ["wdth"],
+});
+// Chakra Petch — angular, instrument-cluster sans for labels & read-outs.
+const chakra = Chakra_Petch({
+  variable: "--font-chakra",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -28,11 +32,11 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${geist.variable} ${geistMono.variable} ${instrument.variable} antialiased`}
+      className={`${saira.variable} ${chakra.variable} antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-dvh">

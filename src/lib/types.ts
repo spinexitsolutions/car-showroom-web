@@ -160,7 +160,7 @@ export interface SiteSettings {
   hero: {
     eyebrow: string;
     titleLine1: string;
-    titleLine2: string; // rendered in serif italic
+    titleLine2: string; // rendered in light expanded weight
     subtitle: string;
     image: string;
     ctaPrimary: string;

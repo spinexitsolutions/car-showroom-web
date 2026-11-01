@@ -224,7 +224,7 @@ export const useStore = create<State>()(
       resetDemo: () => set({ ...seed(), wishlist: [], compare: [] }),
     }),
     {
-      name: "orbis-store-v1",
+      name: "orbis-store-v2",
       version: 1,
       storage: createJSONStorage(() => localStorage),
       skipHydration: true,
