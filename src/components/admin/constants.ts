@@ -40,4 +40,4 @@ export const PRIORITY_MAP = Object.fromEntries(PRIORITIES.map((p) => [p.id, p]))
   (typeof PRIORITIES)[number]
 >;
 
-export const ACCENT_PRESETS = ["#ff5b1f", "#2563eb", "#10b981", "#e11d48", "#a855f7", "#d4a017"];
+export const ACCENT_PRESETS = ["#3b5bff", "#c8ff2e", "#ff4d2e", "#00c2a8", "#e11d48", "#f5b700"];

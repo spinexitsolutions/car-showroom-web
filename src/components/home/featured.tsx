@@ -34,7 +34,7 @@ function Panel({ car, i, total }: { car: Car; i: number; total: number }) {
       <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
         <p className="eyebrow text-white/60">{car.brand} · {car.year}</p>
         <h3 className="display mt-2 truncate text-5xl md:text-7xl">{car.model}</h3>
-        <p className="serif-i truncate text-2xl text-white/80 md:text-4xl">{car.variant}</p>
+        <p className="em-light truncate text-2xl text-white/80 md:text-4xl">{car.variant}</p>
         <p className="mt-2 text-white/60">{car.tagline}</p>
         <div className="mt-6 grid grid-cols-3 gap-4 border-t border-white/15 pt-5 text-[13px]">
           <div>
@@ -97,7 +97,7 @@ export function Featured() {
             </p>
             <div>
               <h2 className="display text-[15vw] md:text-[7vw] xl:text-[112px]">
-                <SplitText text="Hand-picked" /> <SplitText text="this month." wordClassName="serif-i" delay={0.15} />
+                <SplitText text="Hand-picked" /> <SplitText text="this month." wordClassName="em-light" delay={0.15} />
               </h2>
               <p className="mt-6 max-w-sm text-[16px] leading-relaxed text-muted">
                 Every car below has been personally driven, inspected and approved by our specialists. Keep scrolling →
@@ -119,11 +119,11 @@ export function Featured() {
             className="group grid h-[62svh] w-[70vw] shrink-0 place-items-center rounded-[2rem] border border-line sm:w-[40vw] md:h-[70vh] md:w-[28vw]"
           >
             <div className="text-center">
-              <span className="mx-auto grid size-24 place-items-center rounded-full bg-accent text-white transition-transform duration-700 ease-out-expo group-hover:scale-110 group-hover:rotate-45">
+              <span className="mx-auto grid size-24 place-items-center rounded-full bg-accent text-accent-ink transition-transform duration-700 ease-out-expo group-hover:scale-110 group-hover:rotate-45">
                 <ArrowUpRight className="size-8" />
               </span>
               <p className="display mt-8 text-4xl">
-                View all <span className="serif-i">{total}</span>
+                View all <span className="em-light">{total}</span>
               </p>
               <p className="mt-2 text-muted">cars in the collection</p>
             </div>

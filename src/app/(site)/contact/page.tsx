@@ -74,7 +74,7 @@ export default function ContactPage() {
             <div className="rounded-[2rem] bg-white p-6 md:p-10">
               <p className="eyebrow text-muted">Send a message</p>
               <h2 className="display mt-3 text-4xl md:text-5xl">
-                We reply in <span className="serif-i">minutes.</span>
+                We reply in <span className="em-light">minutes.</span>
               </h2>
               <LeadForm
                 className="mt-8"

@@ -57,7 +57,7 @@ export default function WishlistPage() {
               <Heart className="size-7" />
             </motion.div>
             <p className="display mt-6 text-4xl">
-              Nothing saved <span className="serif-i">yet.</span>
+              Nothing saved <span className="em-light">yet.</span>
             </p>
             <p className="mt-3 max-w-sm text-muted">Start exploring — the right car tends to find you.</p>
             <Button href="/inventory" className="mt-8">

@@ -39,7 +39,7 @@ export function AdminLogin() {
         <div className="absolute bottom-12 left-12 max-w-md">
           <p className="eyebrow text-white/50">Dealer OS</p>
           <h2 className="display mt-4 text-6xl">
-            Run the showroom <span className="serif-i text-accent">beautifully.</span>
+            Run the showroom <span className="em-light text-accent">beautifully.</span>
           </h2>
           <p className="mt-5 text-white/60">
             Inventory, leads, test drives and every word on your website — one calm place.
@@ -73,7 +73,7 @@ export function AdminLogin() {
           </div>
 
           <h1 className="mt-10 text-4xl font-semibold tracking-[-0.04em]">
-            Welcome <span className="serif-i text-white/60">back.</span>
+            Welcome <span className="em-light text-white/60">back.</span>
           </h1>
           <p className="mt-2 text-[14px] text-white/50">Sign in to manage your showroom.</p>
 

@@ -280,7 +280,7 @@ export function InventoryView() {
             ) : results.length === 0 ? (
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="rounded-[2rem] border border-dashed border-line py-24 text-center">
                 <p className="display text-4xl">
-                  Nothing <span className="serif-i">here</span> — yet.
+                  Nothing <span className="em-light">here</span> — yet.
                 </p>
                 <p className="mx-auto mt-3 max-w-sm text-muted">
                   Try loosening a filter. Or tell us what you want and we&apos;ll source it for you.

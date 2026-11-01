@@ -119,7 +119,7 @@ export function Cta() {
             <p className="eyebrow text-white/60">Your next chapter</p>
             <h2 className="display mt-5 text-[14vw] md:text-[8vw] xl:text-[128px]">
               <SplitText text="Your drive" /> <br />
-              <SplitText text="starts here." wordClassName="serif-i" delay={0.15} />
+              <SplitText text="starts here." wordClassName="em-light" delay={0.15} />
             </h2>
           </div>
           <Magnetic strength={0.4}>

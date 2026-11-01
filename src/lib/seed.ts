@@ -650,7 +650,7 @@ export const seedSettings: SiteSettings = {
   brandName: "Orbis Motors",
   brandShort: "ORBIS",
   tagline: "Drive the extraordinary.",
-  accent: "#ff5b1f",
+  accent: "#3b5bff",
   phone: "+91 98765 43210",
   whatsapp: "919876543210",
   email: "hello@orbismotors.in",

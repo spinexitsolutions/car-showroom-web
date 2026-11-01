@@ -115,7 +115,7 @@ export function Testimonials() {
                 <span>
                   <span className="font-semibold">{t.name}</span>
                   <span className="text-muted"> — {t.role} · </span>
-                  <span className="serif-i text-lg">{t.car}</span>
+                  <span className="em-light text-lg">{t.car}</span>
                 </span>
               </motion.figcaption>
             </motion.figure>

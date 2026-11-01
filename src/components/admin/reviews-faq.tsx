@@ -65,7 +65,7 @@ export function TestimonialsManager() {
                   <Avatar name={t.name || "?"} src={t.avatar || undefined} size={40} />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-[14px] font-semibold">{t.name}</p>
-                    <p className="truncate text-[12px] text-muted">{t.role} · <span className="serif-i text-[13px]">{t.car}</span></p>
+                    <p className="truncate text-[12px] text-muted">{t.role} · <span className="em-light text-[13px]">{t.car}</span></p>
                   </div>
                   <button onClick={() => setEdit(t)} className="grid size-9 place-items-center rounded-full border border-line hover:bg-paper" aria-label="Edit"><Pencil className="size-4" /></button>
                   <button onClick={() => { if (confirm("Delete testimonial?")) { del(t.id); toast("Testimonial deleted"); } }} className="grid size-9 place-items-center rounded-full text-red-600 hover:bg-red-50" aria-label="Delete"><Trash2 className="size-4" /></button>

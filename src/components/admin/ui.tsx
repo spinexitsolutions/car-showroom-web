@@ -32,7 +32,7 @@ export function AdminPage({
             {eyebrow}
           </p>
           <h1 className="mt-2 text-[32px] font-semibold leading-none tracking-[-0.04em] md:text-[44px]">
-            {title} {italic && <span className="serif-i text-muted">{italic}</span>}
+            {title} {italic && <span className="em-light text-muted">{italic}</span>}
           </h1>
         </div>
         {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
@@ -87,7 +87,7 @@ export function Btn({
 }) {
   const v = {
     ink: "bg-ink text-white hover:bg-ink-2",
-    accent: "bg-accent text-white hover:brightness-110",
+    accent: "bg-accent text-accent-ink hover:brightness-110",
     ghost: "border border-line bg-white hover:bg-paper",
     danger: "border border-red-500/20 bg-red-500/5 text-red-600 hover:bg-red-500/10",
     plain: "hover:bg-ink/5",

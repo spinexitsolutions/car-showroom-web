@@ -90,7 +90,7 @@ export function CarCard({ car, className, priority }: { car: Car; className?: st
           onClick={() => toggleWishlist(car.id)}
           className={cn(
             "grid size-10 place-items-center rounded-full backdrop-blur-md transition-all duration-300 active:scale-90",
-            wish ? "bg-accent text-white" : "bg-white/80 text-ink hover:bg-white"
+            wish ? "bg-accent text-accent-ink" : "bg-white/80 text-ink hover:bg-white"
           )}
         >
           <Heart className={cn("size-4", wish && "fill-current")} />
@@ -114,7 +114,7 @@ export function CarCard({ car, className, priority }: { car: Car; className?: st
           </p>
           <h3 className="mt-1.5 truncate text-[19px] font-semibold tracking-tight">
             {car.brand} {car.model}{" "}
-            <span className="serif-i text-[21px] font-normal text-muted">{car.variant}</span>
+            <span className="em-light text-[21px] font-normal text-muted">{car.variant}</span>
           </h3>
         </div>
         <p className="shrink-0 pt-5 text-[17px] font-semibold tracking-tight">{formatPrice(car.price)}</p>

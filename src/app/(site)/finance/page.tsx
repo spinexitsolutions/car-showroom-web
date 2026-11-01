@@ -40,7 +40,7 @@ export default function FinancePage() {
             <div className="pointer-events-none absolute -right-40 -top-40 size-[520px] rounded-full bg-accent/25 blur-[120px]" />
             <div className="relative mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
               <h2 className="display text-4xl md:text-6xl">
-                <SplitText text="Your EMI," /> <SplitText text="instantly." wordClassName="serif-i text-accent" delay={0.1} />
+                <SplitText text="Your EMI," /> <SplitText text="instantly." wordClassName="em-light text-accent" delay={0.1} />
               </h2>
               <p className="max-w-xs text-[14px] text-white/50">Indicative figures. Final rate depends on lender and credit profile.</p>
             </div>
@@ -67,7 +67,7 @@ export default function FinancePage() {
       {/* Steps */}
       <section className="container-x mt-24">
         <h2 className="display text-[42px] md:text-7xl">
-          <SplitText text="Four steps." /> <SplitText text="Zero stress." wordClassName="serif-i" delay={0.1} />
+          <SplitText text="Four steps." /> <SplitText text="Zero stress." wordClassName="em-light" delay={0.1} />
         </h2>
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {STEPS.map((s, i) => (
@@ -92,7 +92,7 @@ export default function FinancePage() {
             <div className="absolute bottom-0 p-8 text-white md:p-10">
               <CalendarClock className="size-7 text-accent" />
               <p className="display mt-4 text-4xl md:text-5xl">
-                Pre-approved in <span className="serif-i">4 hours.</span>
+                Pre-approved in <span className="em-light">4 hours.</span>
               </p>
               <p className="mt-3 max-w-sm text-white/70">Soft credit check only — applying doesn&apos;t affect your score.</p>
             </div>

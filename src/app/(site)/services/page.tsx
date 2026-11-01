@@ -40,7 +40,7 @@ export default function ServicesPage() {
       <section className="container-x mt-24">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <h2 className="display text-[42px] md:text-7xl">
-            <SplitText text="The service" /> <SplitText text="menu." wordClassName="serif-i" delay={0.1} />
+            <SplitText text="The service" /> <SplitText text="menu." wordClassName="em-light" delay={0.1} />
           </h2>
           <p className="max-w-sm text-muted">Transparent pricing. Approve every line item on WhatsApp before we touch your car.</p>
         </div>
@@ -101,7 +101,7 @@ export default function ServicesPage() {
             <div>
               <p className="eyebrow text-white/50">Book a service</p>
               <h3 className="display mt-3 text-4xl md:text-6xl">
-                Hand us the <span className="serif-i text-accent">keys.</span>
+                Hand us the <span className="em-light text-accent">keys.</span>
               </h3>
               <p className="mt-4 max-w-sm text-white/60">We&apos;ll handle the rest — pick-up, updates with photos, and drop-off, washed and detailed.</p>
             </div>

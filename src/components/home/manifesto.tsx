@@ -39,7 +39,7 @@ export function Manifesto() {
                 </span>
               )}
               <ScrollWord progress={scrollYProgress} range={[start, end]}>
-                <span className={i % 7 === 3 ? "serif-i" : undefined}>{w}</span>
+                <span className={i % 7 === 3 ? "em-light" : undefined}>{w}</span>
               </ScrollWord>{" "}
             </span>
           );

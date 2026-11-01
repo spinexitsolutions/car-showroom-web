@@ -121,7 +121,7 @@ export default function InventoryAdmin() {
                         toast(c.featured ? "Removed from featured" : "Featured on homepage");
                       }}
                       title="Toggle featured"
-                      className={cn("absolute right-3 top-3 grid size-9 place-items-center rounded-full backdrop-blur", c.featured ? "bg-accent text-white" : "bg-white/90 text-ink")}
+                      className={cn("absolute right-3 top-3 grid size-9 place-items-center rounded-full backdrop-blur", c.featured ? "bg-accent text-accent-ink" : "bg-white/90 text-ink")}
                     >
                       <Star className={cn("size-4", c.featured && "fill-current")} />
                     </button>

@@ -77,7 +77,7 @@ export function BookTestDrive() {
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             exit={{ scale: 0 }}
-                            className="absolute right-2 top-2 grid size-7 place-items-center rounded-full bg-accent text-white"
+                            className="absolute right-2 top-2 grid size-7 place-items-center rounded-full bg-accent text-accent-ink"
                           >
                             <Check className="size-4" strokeWidth={3} />
                           </motion.span>
@@ -108,7 +108,7 @@ export function BookTestDrive() {
                         <div className="min-w-0">
                           <p className="eyebrow text-muted">Selected</p>
                           <p className="truncate text-[16px] font-semibold tracking-tight">
-                            {selected.brand} {selected.model} <span className="serif-i font-normal text-muted">{selected.variant}</span>
+                            {selected.brand} {selected.model} <span className="em-light font-normal text-muted">{selected.variant}</span>
                           </p>
                         </div>
                       </>

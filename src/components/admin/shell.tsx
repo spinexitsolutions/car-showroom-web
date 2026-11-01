@@ -125,7 +125,7 @@ function NavList({ collapsed, onNavigate }: { collapsed?: boolean; onNavigate?: 
                       <span
                         className={cn(
                           "relative rounded-full px-2 py-0.5 text-[11px] font-semibold",
-                          active ? "bg-white/20 text-white" : "bg-accent text-white"
+                          active ? "bg-white/20 text-white" : "bg-accent text-accent-ink"
                         )}
                       >
                         {newLeads}

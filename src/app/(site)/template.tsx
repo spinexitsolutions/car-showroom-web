@@ -43,7 +43,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: [0, 1, 1, 0], y: [20, 0, 0, -30] }}
             transition={{ duration: 0.9, times: [0, 0.3, 0.6, 1] }}
-            className="serif-i text-5xl capitalize md:text-7xl"
+            className="em-light text-5xl capitalize md:text-7xl"
           >
             {name}
           </motion.span>

@@ -153,13 +153,13 @@ export default function SellPage() {
                 <p className="display text-[44px] leading-none md:text-6xl">
                   <Money value={low} />
                 </p>
-                <p className="serif-i mt-1 text-3xl text-white/60">
+                <p className="em-light mt-1 text-3xl text-white/60">
                   to <Money value={high} />
                 </p>
                 <p className="mt-6 max-w-sm text-[13px] text-white/50">
                   Indicative range based on market data. Your final offer follows a free 30-minute inspection and is valid for 7 days.
                 </p>
-                <a href="#sell-form" className="mt-6 inline-flex rounded-full bg-accent px-5 py-3 text-[14px] font-medium text-white">
+                <a href="#sell-form" className="mt-6 inline-flex rounded-full bg-accent px-5 py-3 text-[14px] font-medium text-accent-ink">
                   Lock this estimate →
                 </a>
               </div>
@@ -171,7 +171,7 @@ export default function SellPage() {
       {/* Steps */}
       <section className="container-x mt-24">
         <h2 className="display text-[42px] md:text-7xl">
-          <SplitText text="Sold in" /> <SplitText text="one afternoon." wordClassName="serif-i" delay={0.1} />
+          <SplitText text="Sold in" /> <SplitText text="one afternoon." wordClassName="em-light" delay={0.1} />
         </h2>
         <div className="relative mt-12 grid gap-4 md:grid-cols-3">
           {STEPS.map((s, i) => (
@@ -195,7 +195,7 @@ export default function SellPage() {
           <div>
             <p className="eyebrow text-muted">Book inspection</p>
             <h3 className="display mt-3 text-4xl md:text-5xl">
-              Let&apos;s make it <span className="serif-i">official.</span>
+              Let&apos;s make it <span className="em-light">official.</span>
             </h3>
             <p className="mt-4 max-w-sm text-muted">
               Current estimate: <b className="text-ink">{formatPrice(low)} – {formatPrice(high)}</b>. Our evaluator will confirm the final offer after inspection.

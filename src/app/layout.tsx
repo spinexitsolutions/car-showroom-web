@@ -1,15 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Archivo } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 
-const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
-const instrument = Instrument_Serif({
-  variable: "--font-instrument",
+// One sans family, used across widths: wide (125) for display, normal for body.
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
+  axes: ["wdth"],
 });
 
 export const metadata: Metadata = {
@@ -32,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${geist.variable} ${geistMono.variable} ${instrument.variable} antialiased`}
+      className={`${archivo.variable} antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-dvh">

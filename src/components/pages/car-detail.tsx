@@ -113,12 +113,12 @@ export function CarDetail({ car }: { car: Car }) {
             </div>
             <h1 className="display mt-4 text-[44px] sm:text-6xl lg:text-[96px]">
               <SplitText text={`${car.brand} ${car.model}`} trigger="mount" />{" "}
-              <SplitText text={car.variant} wordClassName="serif-i text-muted" trigger="mount" delay={0.2} />
+              <SplitText text={car.variant} wordClassName="em-light text-muted" trigger="mount" delay={0.2} />
             </h1>
             <p className="mt-3 text-lg text-muted">{car.tagline}</p>
           </div>
           <div className="flex items-center gap-2">
-            <button aria-label="Wishlist" onClick={() => toggleWishlist(car.id)} className={cn(iconBtn, wish && "!border-accent !bg-accent text-white")}>
+            <button aria-label="Wishlist" onClick={() => toggleWishlist(car.id)} className={cn(iconBtn, wish && "!border-accent !bg-accent text-accent-ink")}>
               <Heart className={cn("size-4", wish && "fill-current")} />
             </button>
             <button aria-label="Compare" onClick={() => toggleCompare(car.id)} className={cn(iconBtn, inCompare && "!border-ink !bg-ink text-white")}>
@@ -199,7 +199,7 @@ export function CarDetail({ car }: { car: Car }) {
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
-                      className="serif-i text-3xl"
+                      className="em-light text-3xl"
                     >
                       {car.colors[color]?.name}
                     </motion.p>
@@ -212,7 +212,7 @@ export function CarDetail({ car }: { car: Car }) {
             <section className="mt-16 grid gap-8 md:grid-cols-[1fr_1.4fr]">
               <Reveal>
                 <h2 className="display text-4xl md:text-5xl">
-                  The <span className="serif-i">story</span>
+                  The <span className="em-light">story</span>
                 </h2>
               </Reveal>
               <Reveal delay={0.1}>
@@ -329,7 +329,7 @@ export function CarDetail({ car }: { car: Car }) {
           <section className="mt-28">
             <div className="flex items-end justify-between">
               <h2 className="display text-4xl md:text-6xl">
-                You may <span className="serif-i">also</span> like
+                You may <span className="em-light">also</span> like
               </h2>
               <Link href="/inventory" className="eyebrow link-u hidden text-muted sm:block">
                 View all

@@ -82,7 +82,7 @@ export function Categories() {
                     <div>
                       <p className="eyebrow text-white/60">{count(c.key)} available</p>
                       <h3 className="display mt-2 text-5xl md:text-7xl">{c.label}</h3>
-                      <p className="serif-i mt-1 text-xl text-white/75 md:text-2xl">{c.line}</p>
+                      <p className="em-light mt-1 text-xl text-white/75 md:text-2xl">{c.line}</p>
                     </div>
                     <Link
                       href={`/inventory?${c.q}`}

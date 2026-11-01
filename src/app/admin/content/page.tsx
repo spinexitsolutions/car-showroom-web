@@ -58,7 +58,7 @@ export default function ContentPage() {
                 <div className="absolute inset-x-5 bottom-5 text-white">
                   <p className="eyebrow !text-[9px] text-white/60">{h.eyebrow}</p>
                   <p className="display mt-2 text-4xl sm:text-5xl">
-                    {h.titleLine1} <span className="serif-i">{h.titleLine2}</span>
+                    {h.titleLine1} <span className="em-light">{h.titleLine2}</span>
                   </p>
                   <p className="mt-3 line-clamp-2 max-w-sm text-[12px] text-white/60">{h.subtitle}</p>
                   <div className="mt-4 flex gap-2">
@@ -206,7 +206,7 @@ export default function ContentPage() {
               <div className="flex w-max animate-marquee gap-10 whitespace-nowrap" style={{ ["--marquee-duration" as string]: "25s" }}>
                 {[...draft.brands, ...draft.brands].map((b, i) => (
                   <span key={i} className="text-2xl font-semibold tracking-tight">
-                    {b} <span className="serif-i text-accent">✦</span>
+                    {b} <span className="em-light text-accent">✦</span>
                   </span>
                 ))}
               </div>

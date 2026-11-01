@@ -27,7 +27,7 @@ export default function CarPage() {
       <div className="container-x flex min-h-[80dvh] flex-col items-center justify-center pt-24 text-center">
         <p className="eyebrow text-muted">Error 404</p>
         <h1 className="display mt-4 text-6xl md:text-8xl">
-          Car not <span className="serif-i">found.</span>
+          Car not <span className="em-light">found.</span>
         </h1>
         <p className="mt-4 max-w-md text-muted">It may have been sold or moved. Explore the rest of the collection.</p>
         <Link href="/inventory" className="mt-8 rounded-full bg-ink px-6 py-3.5 text-[14px] font-medium text-white">

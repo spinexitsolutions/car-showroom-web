@@ -28,7 +28,7 @@ function Card({ i, step, progress }: { i: number; step: (typeof STEPS)[number]; 
           </div>
           <div className="mt-6 md:mt-0">
             <h3 className="display text-[14vw] md:text-[6vw] xl:text-[96px]">
-              {step.t.split(" ")[0]} <span className="serif-i">{step.t.split(" ")[1] ?? ""}</span>
+              {step.t.split(" ")[0]} <span className="em-light">{step.t.split(" ")[1] ?? ""}</span>
             </h3>
             <p className="mt-4 max-w-md text-[16px] leading-relaxed opacity-70 md:text-lg">{step.d}</p>
           </div>

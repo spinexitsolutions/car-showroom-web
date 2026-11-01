@@ -107,7 +107,7 @@ export function Intro() {
                   ))}
                 </h1>
                 <motion.p
-                  className="serif-i mt-2 text-xl text-white/60 md:text-3xl"
+                  className="em-light mt-2 text-xl text-white/60 md:text-3xl"
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1, ease: EASE, delay: 0.6 }}

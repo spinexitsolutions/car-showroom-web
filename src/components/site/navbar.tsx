@@ -199,7 +199,7 @@ export function Navbar() {
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     exit={{ scale: 0 }}
-                    className="absolute right-1 top-1 grid min-w-4 place-items-center rounded-full bg-accent px-1 text-[9px] font-semibold text-white"
+                    className="absolute right-1 top-1 grid min-w-4 place-items-center rounded-full bg-accent px-1 text-[9px] font-semibold text-accent-ink"
                   >
                     {wishCount}
                   </motion.span>
@@ -219,7 +219,7 @@ export function Navbar() {
             </button>
             <Link
               href="/book-test-drive"
-              className="group relative flex h-10 items-center overflow-hidden rounded-full bg-accent px-4 text-[13px] font-medium text-white"
+              className="group relative flex h-10 items-center overflow-hidden rounded-full bg-accent px-4 text-[13px] font-medium text-accent-ink"
             >
               <span className="relative z-10">Test drive</span>
               <span className="absolute inset-0 -translate-x-full bg-ink transition-transform duration-500 ease-out-expo group-hover:translate-x-0" />
@@ -247,7 +247,7 @@ export function Navbar() {
         </Link>
         <Link
           href="/book-test-drive"
-          className="flex items-center rounded-full bg-accent px-4 text-[13px] font-medium text-white shadow-lg"
+          className="flex items-center rounded-full bg-accent px-4 text-[13px] font-medium text-accent-ink shadow-lg"
         >
           Test drive
         </Link>
@@ -270,7 +270,7 @@ export function Navbar() {
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Menu"
-            className="relative mx-1 grid size-14 place-items-center rounded-full bg-accent text-white transition-transform active:scale-90"
+            className="relative mx-1 grid size-14 place-items-center rounded-full bg-accent text-accent-ink transition-transform active:scale-90"
           >
             {menuOpen ? <X className="size-5" /> : <MenuGlyph open={false} light />}
           </button>
@@ -373,7 +373,7 @@ function FullMenu({
                       )}
                     >
                       {n.label.split(" ")[0]}{" "}
-                      <span className="serif-i">{n.label.split(" ").slice(1).join(" ")}</span>
+                      <span className="em-light">{n.label.split(" ").slice(1).join(" ")}</span>
                     </span>
                     {isActive(n.href) && <span className="ml-auto size-2 rounded-full bg-accent" />}
                   </Link>
@@ -396,7 +396,7 @@ function FullMenu({
                   />
                 </AnimatePresence>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <p className="serif-i absolute bottom-6 left-6 text-4xl">{NAV[preview].label}</p>
+                <p className="em-light absolute bottom-6 left-6 text-4xl">{NAV[preview].label}</p>
               </div>
               <motion.div
                 initial={{ opacity: 0 }}

@@ -101,7 +101,7 @@ export default function ComparePage() {
                       </button>
                       <p className="eyebrow mt-4 text-muted">{c.brand}</p>
                       <p className="mt-1 text-xl font-semibold tracking-tight">
-                        {c.model} <span className="serif-i font-normal text-muted">{c.variant}</span>
+                        {c.model} <span className="em-light font-normal text-muted">{c.variant}</span>
                       </p>
                     </motion.div>
                   ))}

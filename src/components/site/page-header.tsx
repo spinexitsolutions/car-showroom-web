@@ -6,7 +6,7 @@ import { cn, EASE } from "@/lib/utils";
 
 /**
  * Shared hero for inner pages: mono breadcrumb, oversized headline with
- * serif-italic emphasis, optional description + right-side slot.
+ * light-weight emphasis, optional description + right-side slot.
  */
 export function PageHeader({
   eyebrow,
@@ -40,7 +40,7 @@ export function PageHeader({
           {italic && (
             <>
               {" "}
-              <SplitText text={italic} wordClassName="serif-i" trigger="mount" delay={0.25} />
+              <SplitText text={italic} wordClassName="em-light" trigger="mount" delay={0.25} />
             </>
           )}
         </h1>

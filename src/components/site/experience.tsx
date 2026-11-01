@@ -134,7 +134,11 @@ export function AnnouncementBar() {
   const [closed, setClosed] = useState(false);
   const setAnnVisible = useUI((s) => s.setAnnVisible);
   const visible = a.enabled && !closed;
-  useEffect(() => setAnnVisible(visible), [visible, setAnnVisible]);
+  useEffect(() => {
+    setAnnVisible(visible);
+    // lets full-height sections (home hero) subtract the bar's height
+    document.documentElement.style.setProperty("--ann-h", visible ? "38px" : "0px");
+  }, [visible, setAnnVisible]);
   if (!visible) return null;
   return (
     <motion.div
@@ -143,7 +147,7 @@ export function AnnouncementBar() {
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="relative z-[45] overflow-hidden bg-ink text-white"
     >
-      <div className="container-x flex items-center justify-center gap-3 py-2.5 pr-10 text-center text-[12.5px]">
+      <div className="container-x flex h-[38px] items-center justify-center gap-3 pr-10 text-center text-[12.5px]">
         <span className="size-1.5 shrink-0 animate-pulse rounded-full bg-accent" />
         <a href={a.link} className="truncate text-white/85 hover:text-white">
           {a.text} <span className="text-white/50">→</span>

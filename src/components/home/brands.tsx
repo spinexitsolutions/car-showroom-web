@@ -47,7 +47,7 @@ function VelocityRow({ items, base = 3 }: { items: string[]; base?: number }) {
                 <span
                   className={
                     i % 2
-                      ? "serif-i px-6 text-[13vw] leading-none text-ink/85 md:px-10 md:text-[7vw]"
+                      ? "em-light px-6 text-[13vw] leading-none text-ink/85 md:px-10 md:text-[7vw]"
                       : "display px-6 text-[13vw] leading-none md:px-10 md:text-[7vw]"
                   }
                 >

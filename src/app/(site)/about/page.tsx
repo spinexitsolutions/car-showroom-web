@@ -103,7 +103,7 @@ export default function AboutPage() {
       <section className="mt-24 bg-ink py-24 text-white md:py-32">
         <div className="container-x">
           <h2 className="display text-[42px] md:text-7xl">
-            <SplitText text="What we" /> <SplitText text="stand for." wordClassName="serif-i text-accent" delay={0.1} />
+            <SplitText text="What we" /> <SplitText text="stand for." wordClassName="em-light text-accent" delay={0.1} />
           </h2>
           <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {VALUES.map((v, i) => (
@@ -122,7 +122,7 @@ export default function AboutPage() {
       {/* Timeline */}
       <section className="container-x mt-24 md:mt-32">
         <h2 className="display text-[42px] md:text-center md:text-7xl">
-          <SplitText text="Fourteen years," /> <SplitText text="in motion." wordClassName="serif-i" delay={0.1} />
+          <SplitText text="Fourteen years," /> <SplitText text="in motion." wordClassName="em-light" delay={0.1} />
         </h2>
         <Timeline />
       </section>
@@ -131,7 +131,7 @@ export default function AboutPage() {
       <section className="container-x mt-28">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <h2 className="display text-[42px] md:text-7xl">
-            <SplitText text="The people" /> <SplitText text="behind it." wordClassName="serif-i" delay={0.1} />
+            <SplitText text="The people" /> <SplitText text="behind it." wordClassName="em-light" delay={0.1} />
           </h2>
           <p className="max-w-sm text-muted">Car people first, salespeople never. Meet the team you&apos;ll actually talk to.</p>
         </div>
@@ -160,7 +160,7 @@ export default function AboutPage() {
         </div>
         <div className="mt-16 flex flex-col items-center text-center">
           <p className="display text-4xl md:text-6xl">
-            Come say <span className="serif-i">hello.</span>
+            Come say <span className="em-light">hello.</span>
           </p>
           <p className="mt-3 text-muted">{settings.address}</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">

@@ -31,14 +31,24 @@ const MAP: Record<SectionId, React.ComponentType> = {
 /** Homepage: section order + visibility are controlled from Admin → Content. */
 export default function HomePage() {
   const sections = useStore((s) => s.settings.sections);
-  return (
-    <>
-      {sections
-        .filter((s) => s.enabled && MAP[s.id])
-        .map((s) => {
-          const C = MAP[s.id];
-          return <C key={s.id} />;
-        })}
-    </>
-  );
+  const list = sections.filter((s) => s.enabled && MAP[s.id]);
+  const render = (ids: typeof list) =>
+    ids.map((s) => {
+      const C = MAP[s.id];
+      return <C key={s.id} />;
+    });
+
+  // When the hero leads, it stays pinned and the rest of the page slides
+  // over it as a rounded "sheet".
+  if (list[0]?.id === "hero") {
+    return (
+      <>
+        <Hero />
+        <div className="relative z-10 -mt-px rounded-t-[1.75rem] bg-paper shadow-[0_-30px_60px_-20px_rgba(0,0,0,0.5)] md:rounded-t-[3rem]">
+          {render(list.slice(1))}
+        </div>
+      </>
+    );
+  }
+  return <>{render(list)}</>;
 }

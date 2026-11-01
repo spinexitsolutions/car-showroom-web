@@ -8,7 +8,7 @@ type Variant = "ink" | "accent" | "ghost" | "light" | "outline-light";
 
 const styles: Record<Variant, string> = {
   ink: "bg-ink text-white hover:bg-ink-2",
-  accent: "bg-accent text-white",
+  accent: "bg-accent text-accent-ink",
   ghost: "border border-line bg-white/50 text-ink hover:bg-white",
   light: "bg-white text-ink hover:bg-paper",
   "outline-light": "border border-white/25 text-white hover:bg-white/10",

@@ -45,7 +45,7 @@ export function Footer() {
           <div>
             <p className="eyebrow text-white/40">Newsletter</p>
             <h3 className="display mt-4 text-4xl md:text-5xl">
-              First look at <span className="serif-i">new arrivals.</span>
+              First look at <span className="em-light">new arrivals.</span>
             </h3>
             {subscribed ? (
               <motion.p initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mt-8 text-white/70">

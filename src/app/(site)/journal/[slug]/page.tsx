@@ -24,7 +24,7 @@ export default function ArticlePage() {
     return (
       <div className="container-x flex min-h-[80dvh] flex-col items-center justify-center text-center">
         <h1 className="display text-6xl">
-          Story not <span className="serif-i">found.</span>
+          Story not <span className="em-light">found.</span>
         </h1>
         <Button href="/journal" className="mt-8">
           Back to journal
@@ -82,7 +82,7 @@ function Article({ post, related }: { post: Post; related: Post[] }) {
           <div className="mt-10 space-y-6">
             {paragraphs.map((p, i) => (
               <Reveal key={i} y={16}>
-                <p className={`text-[18px] leading-[1.75] text-ink/80 ${i === 0 ? "first-letter:float-left first-letter:mr-3 first-letter:font-serif first-letter:text-[72px] first-letter:leading-[0.8] first-letter:text-accent" : ""}`}>
+                <p className={`text-[18px] leading-[1.75] text-ink/80 ${i === 0 ? "first-letter:float-left first-letter:mr-3 first-letter:font-bold first-letter:[font-stretch:125%] first-letter:text-[72px] first-letter:leading-[0.8] first-letter:text-accent" : ""}`}>
                   {p}
                 </p>
               </Reveal>
@@ -90,7 +90,7 @@ function Article({ post, related }: { post: Post; related: Post[] }) {
           </div>
           <div className="mt-16 rounded-[1.75rem] bg-ink p-8 text-white">
             <p className="display text-3xl">
-              Inspired? <span className="serif-i text-accent">Take one for a spin.</span>
+              Inspired? <span className="em-light text-accent">Take one for a spin.</span>
             </p>
             <Button href="/book-test-drive" variant="light" className="mt-6">
               Book a test drive
